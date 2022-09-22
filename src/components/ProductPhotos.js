@@ -14,7 +14,7 @@ const _ProductPhotos = ({ photos = [] }) => {
     <div className="photo-list">
       <img
         className="current-photo back-img-center"
-        src={`https://artomdev.pythonanywhere.com/media/images/${photos[currentPhoto]}`}
+        src={`https://artyomdev.pythonanywhere.com/media/images/${photos[currentPhoto]}`}
         alt={`photo #${currentPhoto}`}
       />
       {photos ? (
@@ -33,7 +33,7 @@ const _ProductPhotos = ({ photos = [] }) => {
                 />
                 <label htmlFor={`photo-${index}`}>
                   <img
-                    src={`https://artomdev.pythonanywhere.com/media/images/${photo}`}
+                    src={`https://artyomdev.pythonanywhere.com/media/images/${photo}`}
                     alt={`photo #${index}`}
                   />
                 </label>

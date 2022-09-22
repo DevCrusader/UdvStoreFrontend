@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     if (user) return;
 
-    const url = "https://artomdev.pythonanywhere.com/user/token/";
+    const url = "https://artyomdev.pythonanywhere.com/user/token/";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       return logoutUser();
     }
 
-    const url = "https://artomdev.pythonanywhere.com/user/token/refresh/";
+    const url = "https://artyomdev.pythonanywhere.com/user/token/refresh/";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }) => {
       return response;
     };
 
-    const firstRes = await _fetch(new String(authTokens.access));
+    const firstRes = await _fetch(new String(authTokens?.access));
 
     if (firstRes.status === 401) {
       const updatedAccessToken = await updateToken();
@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateUserBalance = async () => {
     const response = await authFetch(
-      "https://artomdev.pythonanywhere.com/user/balance/",
+      "https://artyomdev.pythonanywhere.com/user/balance/",
       {
         method: "GET",
         headers: {

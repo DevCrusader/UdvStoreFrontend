@@ -27,7 +27,7 @@ const Confirm = () => {
 
       // setOrderDetails({});
       const response = await authFetch(
-        "https://artomdev.pythonanywhere.com/user/order/create/",
+        "https://artyomdev.pythonanywhere.com/user/order/create/",
         {
           method: "POST",
           headers: {
@@ -76,7 +76,7 @@ const Confirm = () => {
             renderItem={(item) => (
               <div className="cart-item">
                 <img
-                  src={`https://artomdev.pythonanywhere.com/media/images/${item.photo}`}
+                  src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
                 />
                 <div className="item-info">
                   <Link

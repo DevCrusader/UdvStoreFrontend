@@ -30,7 +30,7 @@ export const CartProvider = ({ children }) => {
 
     console.log("Load cart");
     const response = await authFetch(
-      "https://artomdev.pythonanywhere.com/store/cart/",
+      "https://artyomdev.pythonanywhere.com/store/cart/",
       {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ export const CartProvider = ({ children }) => {
     );
 
     const response = await authFetch(
-      `https://artomdev.pythonanywhere.com/store/cart/${id}/`,
+      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
       {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ export const CartProvider = ({ children }) => {
     );
 
     const response = await authFetch(
-      `https://artomdev.pythonanywhere.com/store/cart/${id}/`,
+      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
       {
         method: "POST",
         headers: {
@@ -109,7 +109,7 @@ export const CartProvider = ({ children }) => {
     const newCart = cart.filter((item) => item.id !== id);
 
     const response = await authFetch(
-      `https://artomdev.pythonanywhere.com/store/cart/${id}/`,
+      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
       {
         method: "DELETE",
         headers: {
@@ -127,7 +127,7 @@ export const CartProvider = ({ children }) => {
 
   const addItem = async (productId, type, size) => {
     const response = await authFetch(
-      "https://artomdev.pythonanywhere.com/store/cart/add/",
+      "https://artyomdev.pythonanywhere.com/store/cart/add/",
       {
         method: "POST",
         headers: {

@@ -16,7 +16,7 @@ const AdminOrders = () => {
 
   const getOrdersList = async () => {
     const response = await authFetch(
-      "https://artomdev.pythonanywhere.com/service-admin/orders/",
+      "https://artyomdev.pythonanywhere.com/service-admin/orders/",
       {
         method: "GET",
         Headers: {
