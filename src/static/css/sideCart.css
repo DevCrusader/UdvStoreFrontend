@@ -1,0 +1,151 @@
+button.absolute-side-cart-btn {
+  position: fixed;
+  top: 85vh;
+  left: 85vw;
+
+  font-size: 1em;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+
+  padding: 15px;
+  padding-left: 50px;
+  background-image: url("../svg/CartIcon.svg");
+  background-size: 20%;
+  background-position: 10% 50%;
+
+  transition-duration: 0.5s;
+}
+
+button.absolute-side-cart-btn:hover {
+  filter: invert();
+}
+
+#side-cart {
+  position: fixed;
+  top: 0;
+  left: 100vw;
+
+  z-index: 991;
+
+  max-width: 393px;
+  width: 27.3vw;
+  height: 100vh;
+
+  border-left: 1px solid #363636;
+  background-color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#side-cart > header {
+  /* Make adaptive */
+  height: 67px;
+  border-bottom: 2px solid #2c2c2c;
+  padding-right: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#side-cart > header > button {
+  color: white;
+  background-color: black;
+
+  font-size: 1em;
+
+  /* Make adaptive */
+  padding: 10px;
+  padding-right: 50px;
+  background-image: url("../svg/CloseCartIcon.svg");
+  background-position-x: 80%;
+  background-position-y: 60%;
+  background-size: 14%;
+}
+
+#side-cart > ul.cart-items {
+  height: calc(100% - 69px - 100px - 20px - 20px);
+  padding: 20px;
+  overflow-x: scroll;
+
+  scrollbar-width: auto;
+
+  /* Так у artlebedev */
+  scrollbar-width: thin;
+
+  /* Move scrollbar on left size => mirroring block content */
+  /*  direction: rtl; */
+}
+
+#side-cart > footer {
+  height: 98px;
+  border-top: 2px solid #2c2c2c;
+
+  font-size: 1.1em;
+  padding: 0 10px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#side-cart > footer button {
+  border-radius: 10px;
+  font-size: 1em;
+  padding: 10px;
+}
+
+#side-cart.open-side-cart {
+  animation: open-cart 1s forwards;
+}
+
+#side-cart.close-side-cart {
+  animation: close-cart 1s forwards;
+}
+
+@media screen and (min-width: 1440px) {
+  @keyframes open-cart {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-393px);
+    }
+  }
+
+  @keyframes close-cart {
+    0% {
+      transform: translateX(-393px);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  @keyframes open-cart {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-27.3vw);
+    }
+  }
+
+  @keyframes close-cart {
+    0% {
+      transform: translateX(-27.3vw);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+}

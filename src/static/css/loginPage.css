@@ -1,0 +1,82 @@
+div.login-wrapper > form {
+  margin: auto;
+
+  width: 80vw;
+
+  margin-top: 20vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+div.login-wrapper > form > .decoration {
+  display: flex;
+
+  margin-left: -45px;
+}
+
+div.login-wrapper > form > .decoration > img {
+  padding-right: 19px;
+  border-right: 2px solid #767676;
+  margin-right: 19px;
+}
+
+div.login-wrapper > form > .decoration > span {
+  width: 200px;
+}
+
+div.login-wrapper > form > .form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 32px;
+}
+
+div.login-wrapper > form > .form-body > input:not([type="submit"]) {
+  appearance: none;
+  color: white;
+  background-color: black;
+
+  width: 270px;
+  border: 2px solid white;
+  border-radius: 15px;
+
+  font-size: 1em;
+  padding: 15px;
+}
+
+div.login-wrapper > form > .form-body > label {
+  align-self: flex-start;
+
+  margin-top: 27px;
+  margin-bottom: 10px;
+  color: #767676;
+}
+
+div.login-wrapper > form > .form-body > input[type="submit"] {
+  background-color: white;
+  color: black;
+  font-size: 1em;
+  padding: 15px 45px;
+  border: 2px solid white;
+  border-radius: 15px;
+
+  margin: 45px 0;
+  transition-duration: 0.3s;
+}
+
+div.login-wrapper > form > .form-body > input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+
+  /* transition-duration: 0.5s; */
+}
+
+div.login-wrapper > form > .form-body > a {
+  color: #767676;
+}

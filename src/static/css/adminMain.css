@@ -1,0 +1,171 @@
+.admin-main {
+  min-width: 600px;
+
+  width: 45vw;
+  height: 83.33vh;
+  margin-top: 2vh !important;
+  font-size: 1.75vh;
+
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+@media screen and (min-width: 1440px) {
+  .admin-main {
+    min-width: 886px;
+  }
+}
+
+.admin-main > a {
+  display: block;
+
+  background-color: white;
+  border-radius: 2vh;
+
+  text-decoration: none;
+  text-align: center;
+}
+
+.admin-main > a.vertical {
+  height: calc(36.143% - 3% - 3%);
+  padding: 3% 0;
+}
+
+.admin-main > a.v__thin {
+  width: 30.813%;
+}
+
+.admin-main > a.v__fat {
+  width: 65.124%;
+}
+
+.admin-main > a span.name {
+  font-size: 1.27em;
+}
+
+.admin-main > a.vertical {
+  display: grid;
+  grid-template-rows: 1.25fr 1fr;
+
+  align-items: center;
+}
+
+.admin-main > a.vertical > img {
+  grid-row: 1;
+
+  height: 80%;
+  justify-self: center;
+}
+
+.admin-main > a:hover > img {
+  transform: scale(1.1);
+  transition-duration: 0.3s;
+}
+
+.admin-main > a.vertical > span {
+  grid-row: 2;
+
+  height: 100%;
+  justify-self: center;
+
+  padding-top: 3vh;
+
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+.admin-main > a.vertical span.name {
+  grid-row: 1;
+}
+
+.admin-main > a.vertical span.description {
+  grid-row: 2;
+}
+
+.admin-main > a.horizontal {
+  width: 100%;
+  height: calc(19.63% - 3.3% - 3.3%);
+
+  padding: 3.3% 11.3%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-main > a.horizontal > img {
+  height: 100%;
+}
+
+.admin-main > a.horizontal > span {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-main > a.requests {
+  background-color: #2b2b2b;
+}
+
+.admin-main > a.requests span.name {
+  color: white;
+}
+
+.admin-main > a.requests span.description {
+  color: #575757;
+}
+
+.admin-main > a.products {
+  background-color: #ffd66b;
+}
+
+.admin-main > a.products span.name {
+  color: black;
+}
+
+.admin-main > a.products span.description {
+  color: #bf9d45;
+}
+
+.admin-main > a.orders {
+  background-color: #f9f6f1;
+  flex-direction: row-reverse;
+}
+
+.admin-main > a.orders span.name {
+  color: black;
+}
+
+.admin-main > a.orders span.description {
+  color: #c5c0b8;
+}
+
+.admin-main > a.users-mng {
+  background-color: #df735e;
+}
+
+.admin-main > a.users-mng span.name {
+  color: black;
+}
+
+.admin-main > a.users-mng span.description {
+  color: #ff9781;
+}
+
+.admin-main > a.users-reg {
+  background-color: #a3ffd3;
+}
+
+.admin-main > a.users-reg span.name {
+  color: black;
+}
+
+.admin-main > a.users-reg span.description {
+  color: #69ab8b;
+}

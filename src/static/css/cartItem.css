@@ -1,0 +1,107 @@
+ul.cart-items .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #101010;
+  padding: 20px 0;
+}
+
+ul.cart-items .cart-item > img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+ul.cart-items .cart-item a {
+  color: #548ee5;
+  font-size: 0.9em;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  border-color: #548ee5;
+}
+
+ul.cart-items .cart-item a:visited {
+  color: #864dc2;
+  border-color: #864dc2;
+}
+
+ul.cart-items .cart-item a:hover {
+  color: #ff5656;
+  border-color: #ff5656;
+}
+
+ul.cart-items .cart-item > div.item-delete > button {
+  width: 20px;
+  height: 20px;
+
+  margin-bottom: 60px;
+
+  background-image: url("../svg/DeleteIcon.svg");
+  background-color: rgba(0, 0, 0, 0);
+
+  filter: brightness(40%);
+}
+
+ul.cart-items .cart-item > div.item-delete > button:hover {
+  filter: brightness(80%);
+}
+
+ul.cart-items .cart-item > div.item-info {
+  width: 100%;
+  padding: 0 4% 0 6%;
+
+  /* height: 80px; */
+}
+
+ul.cart-items .cart-item > div.item-info > div {
+  display: flex;
+  margin-top: 20px;
+}
+
+ul.cart-items .cart-item > div.item-info > div .item-count-ctrl {
+  margin-right: 10px;
+}
+
+ul.cart-items .cart-item > div.item-info > div .number-with-icon {
+  padding-left: 10px;
+  border-left: 1px solid #393939;
+}
+
+.item-count-ctrl {
+  width: 69px;
+  height: 25px;
+
+  background-color: #363636;
+  color: white;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-count-ctrl button {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0 5px;
+
+  width: 30%;
+
+  color: white;
+  font-size: 1.2em;
+
+  height: 100%;
+  transition-duration: 0.5s;
+}
+
+.item-count-ctrl button.increase {
+  border-left: 1px solid #565353;
+}
+
+.item-count-ctrl button.decrease {
+  border-right: 1px solid #565353;
+}
+
+.item-count-ctrl button:hover {
+  color: #bbbbbb;
+}

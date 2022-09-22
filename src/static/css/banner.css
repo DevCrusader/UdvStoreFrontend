@@ -1,0 +1,33 @@
+.banner {
+  height: 500px;
+
+  margin-top: -20px;
+
+  background-image: url("../svg/Banner.svg");
+
+  display: flex;
+  align-items: center;
+}
+
+.banner > ul.banner-name {
+  max-width: 1440px;
+  width: 1440px;
+  margin: 0 auto;
+
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (min-width: 1440px) {
+  .banner {
+    width: 100vw;
+    margin-left: calc(-50vw + 720px);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .banner {
+    width: 100%;
+  }
+}

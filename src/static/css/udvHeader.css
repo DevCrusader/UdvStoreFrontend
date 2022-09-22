@@ -1,0 +1,116 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 990;
+
+  width: 100%;
+  height: 67px;
+  background-color: black;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  border-bottom: 0.15vw solid #2c2c2c;
+}
+
+.udv-header > ul {
+  appearance: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  column-gap: 60px;
+}
+
+.udv-header > ul > li {
+  appearance: none;
+
+  height: 100%;
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+}
+
+.udv-header > ul > li:nth-child(2n -1) {
+  justify-self: end;
+}
+
+.udv-header > ul > li > a {
+  appearance: none;
+  color: white;
+  text-decoration: none;
+}
+
+.udv-header > ul > li > a,
+.udv-header > ul > li > span,
+.udv-header > ul > li > button {
+  height: 30px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+}
+
+.udv-header > ul > li > a {
+  height: 32px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+}
+
+.udv-header > ul > li > a:hover,
+.udv-header > ul > li > span:hover,
+.udv-header > ul > li > button:hover {
+  cursor: pointer;
+  border-color: #00d193;
+}
+
+.udv-header > ul > li > a.store {
+  display: inline-block;
+
+  width: 110px;
+
+  background-image: url("../svg/StoreIcon.svg");
+
+  justify-self: end;
+}
+
+.udv-header > ul > li > span.number-with-icon {
+  padding-left: 50px;
+  height: 100%;
+
+  background-image: url("../svg/AccountIcon.svg");
+  background-repeat: no-repeat;
+  background-position: 10% 50%;
+}
+
+.udv-header > ul > li > button.logout-btn {
+  background-color: rgba(0, 0, 0, 0);
+  height: calc(100% + 2px);
+
+  font-size: 1em;
+  color: white;
+  padding-left: 45px;
+
+  background-image: url("../svg/LogoutIcon.svg");
+  background-size: 30%;
+  background-position: 0 50%;
+}
+
+@media screen and (min-width: 1366px) {
+  .udv-header > ul {
+    width: calc(1440px - 163px - 163px);
+    padding: 0 163px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .udv-header > ul {
+    width: calc(100% - 50px - 50px);
+    padding: 0 50px;
+  }
+}

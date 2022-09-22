@@ -1,0 +1,75 @@
+body {
+  background-color: black;
+  color: white;
+  font-size: 19px;
+}
+
+body:before {
+  display: block;
+  content: "";
+  height: 69px;
+}
+
+@font-face {
+  font-family: "Ufo";
+  src: url("../font/ufo-regular-webfont.woff2") format("woff2"),
+    url("../font/ufo-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+ul {
+  appearance: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#root > div.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.back-img-center {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+button {
+  border: none;
+  appearance: none;
+}
+
+button:not(:disabled):hover,
+input[type="checkbox"]:not(:disabled):hover + label,
+input[type="radio"]:not(:disabled):hover + label,
+input[type="radio"]:not(:disabled):hover,
+input[type="checkbox"]:not(:disabled):hover {
+  cursor: pointer;
+}
+
+/* NumberWithIcon util styles */
+span.number-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+span.number-with-icon > .price {
+  font-family: "Ufo";
+  font-size: 1.2em;
+}
+
+span.number-with-icon > .icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1em;
+}
+
+span.number-with-icon > .icon.white {
+  background-image: url("../svg/WhiteUcoinIcon.svg");
+}
+
+span.number-with-icon > .icon.black {
+  background-image: url("../svg/BlackUcoinIcon.svg");
+}

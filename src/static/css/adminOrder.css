@@ -1,0 +1,180 @@
+.admin-orders {
+  max-width: 886px !important;
+  color: black;
+}
+
+.admin-orders > ul.orders-wrapper > li {
+  display: block;
+  background-color: white;
+
+  border-radius: 15px;
+
+  margin: 40px 0;
+
+  padding: 25px 35px;
+}
+
+.admin-orders > ul.orders-wrapper > li > .order-header {
+  margin-bottom: 10px;
+}
+
+.admin-orders > ul.orders-wrapper > li > .order-header > span {
+  padding-right: 12.5px;
+  border-right: 1px solid black;
+}
+
+.admin-orders > ul.orders-wrapper > li > .order-header > button {
+  font-size: 1em;
+
+  margin-left: 12.5px;
+}
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > .order-header
+  > button.to-product-list {
+  color: #548ee5;
+  background-color: rgba(0, 0, 0, 0);
+}
+.admin-orders > ul.orders-wrapper > li > .order-header > button.to-order-info {
+  padding-left: 30px;
+
+  background-image: url("../svg/BackArrowIcon.svg");
+  background-color: rgba(0, 0, 0, 0);
+  background-position: 0;
+  background-size: 18%;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > ul.info {
+  width: 38%;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > ul.state {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > ul.state > li {
+  padding: 4% 0;
+  color: black;
+  padding-left: 20px;
+
+  background-image: url("../svg/OrderStateDecorationIcon.svg");
+  background-position: 2% 50%;
+  background-size: 2.5%;
+
+  opacity: 0.2;
+  transition-duration: 0.5s;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > ul.state > li.near {
+  opacity: 0.45;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > ul.state > li.active {
+  opacity: 1;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > .toggle > button {
+  font-size: 1em;
+  width: 218px;
+  height: 36px;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 5px 17px;
+  background-color: white;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  .order-info
+  > .toggle
+  > button.completed::after {
+  content: "После обновления страницы заказ не будет отображён.";
+  display: inline-block;
+
+  position: absolute;
+  font-size: 0.7em;
+  color: #575757;
+
+  margin-left: calc(-216px + 19px);
+  margin-top: 33px;
+
+  width: 216px;
+
+  text-align: center;
+}
+
+.admin-orders > ul.orders-wrapper > li .order-info > .toggle > button:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.admin-orders > ul.orders-wrapper > li > ul.products-list {
+  display: flex;
+  overflow-x: scroll;
+
+  padding: 29.3px 0;
+}
+
+.admin-orders > ul.orders-wrapper > li > ul.products-list > li {
+  display: flex;
+  align-items: center;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > ul.products-list
+  > li:not(:last-child) {
+  margin-right: 60px;
+}
+
+.admin-orders > ul.orders-wrapper > li > ul.products-list > li > img {
+  width: 65px;
+  height: 65px;
+  margin-right: 13px;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > ul.products-list
+  > li
+  > .prod-info
+  > .name {
+  width: max-content;
+  margin-bottom: 10px;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > ul.products-list
+  > li
+  > .prod-info
+  > .type-size
+  > span {
+  background-color: black;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > ul.products-list
+  > li
+  > .prod-info
+  > .type-size
+  > span:not(:last-child) {
+  margin-right: 8px;
+}
