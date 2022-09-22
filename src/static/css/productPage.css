@@ -17,6 +17,8 @@
   width: 605px;
   height: 605px;
 
+  margin: 0 10px;
+
   object-fit: contain;
 }
 
