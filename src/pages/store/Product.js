@@ -49,7 +49,7 @@ const Product = ({ productId, type, theme }) => {
   }, [currentItem]);
 
   const getProductInfo = async () => {
-    const url = `https://udvstore.pythonanywhere.com/store/products/${productId}/?theme=${productTheme}`;
+    const url = `https://artomdev.pythonanywhere.com/store/products/${productId}/?theme=${productTheme}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {

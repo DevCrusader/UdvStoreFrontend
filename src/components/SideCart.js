@@ -57,7 +57,7 @@ const PureSideCart = () => {
           renderItem={(item) => (
             <div className="cart-item">
               <img
-                src={`https://udvstore.pythonanywhere.com/media/images/${item.photo}`}
+                src={`https://artomdev.pythonanywhere.com/media/images/${item.photo}`}
               />
               <div className="item-info">
                 <Link
