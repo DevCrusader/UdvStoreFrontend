@@ -30,18 +30,15 @@ const PureSideCart = () => {
     element.classList.add("close-side-cart");
   };
 
-  const cartitemsCount = () => {
-    const count = cart.length;
-
-    return [
-      count,
-      (count > 10 && count < 20) || count % 10 > 4 || count % 10 === 0
+  const cartitemsCount = (length) =>
+    [
+      length,
+      (length > 10 && length < 20) || length % 10 > 4 || length % 10 === 0
         ? "товаров"
-        : count % 10 === 1
+        : length % 10 === 1
         ? "товар"
         : "товара",
     ].join(" ");
-  };
 
   return (
     <>
@@ -122,14 +119,14 @@ const PureSideCart = () => {
           )}
         </footer>
       </div>
-      <div>
+      {cart && Boolean(cart.length) && (
         <button
           className="back-img-center absolute-side-cart-btn"
           onClick={openSideCart}
         >
-          {cart && cart.length ? cartitemsCount() : "Корзина"}
+          {cartitemsCount(cart.length)}
         </button>
-      </div>
+      )}
     </>
   );
 };

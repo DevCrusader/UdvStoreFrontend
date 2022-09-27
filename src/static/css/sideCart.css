@@ -44,7 +44,7 @@ button.absolute-side-cart-btn:hover {
   /* Make adaptive */
   height: 67px;
   border-bottom: 2px solid #2c2c2c;
-  padding-right: 25px;
+  padding-right: 20px;
 
   display: flex;
   align-items: center;
@@ -61,14 +61,15 @@ button.absolute-side-cart-btn:hover {
   padding: 10px;
   padding-right: 50px;
   background-image: url("../svg/CloseCartIcon.svg");
-  background-position-x: 80%;
-  background-position-y: 60%;
+  background-position-x: 85%;
+  background-position-y: 53%;
   background-size: 14%;
 }
 
 #side-cart > ul.cart-items {
   height: calc(100% - 69px - 100px - 20px - 20px);
   padding: 20px;
+  padding-right: 30px;
   overflow-x: scroll;
 
   scrollbar-width: auto;

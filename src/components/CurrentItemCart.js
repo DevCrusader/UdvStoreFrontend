@@ -3,14 +3,8 @@ import CartContext from "../context/CartContext";
 import List from "../utils/List";
 
 const CurrentItemCart = ({ productId, type, size }) => {
-  const {
-    cart,
-    addItem,
-    increaseItemCount,
-    decreaseItemCount,
-    deleteItem,
-    loadCart,
-  } = useContext(CartContext);
+  const { cart, addItem, increaseItemCount, decreaseItemCount, loadCart } =
+    useContext(CartContext);
 
   const [currentCartItem, setCurrentCartItem] = useState(null);
 

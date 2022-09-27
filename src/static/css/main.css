@@ -1,21 +1,23 @@
-body {
-  background-color: black;
-  color: white;
-  font-size: 19px;
-}
-
-body:before {
-  display: block;
-  content: "";
-  height: 69px;
-}
-
 @font-face {
   font-family: "Ufo";
   src: url("../font/ufo-regular-webfont.woff2") format("woff2"),
     url("../font/ufo-regular-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
+}
+
+body {
+  background-color: black;
+  color: white;
+  margin-top: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 19px;
+}
+
+a,
+button {
+  font-family: "Roboto", sans-serif;
 }
 
 ul {
@@ -25,7 +27,7 @@ ul {
   margin: 0;
 }
 
-#root > div.container {
+.standart-container {
   max-width: 1440px;
   margin: 0 auto;
 }

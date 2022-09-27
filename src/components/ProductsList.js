@@ -31,7 +31,7 @@ const ProductsList = ({ theme }) => {
   };
 
   return (
-    <div className="store products-list">
+    <div className="store products-list standart-container">
       <List
         data={products}
         renderItem={(item) => (

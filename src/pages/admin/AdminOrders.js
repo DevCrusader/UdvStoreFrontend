@@ -31,7 +31,7 @@ const AdminOrders = () => {
   };
 
   return (
-    <div className="admin-orders container">
+    <div className="admin-orders standart-container">
       <List
         data={orders}
         listClassName={"orders-wrapper"}

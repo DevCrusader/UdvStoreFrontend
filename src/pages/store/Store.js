@@ -4,11 +4,11 @@ import ProductsList from "../../components/ProductsList";
 import SideCart from "../../components/SideCart";
 const Store = ({ theme }) => {
   return (
-    <div>
+    <>
       <Banner />
       <ProductsList theme={theme} />
       <SideCart />
-    </div>
+    </>
   );
 };
 

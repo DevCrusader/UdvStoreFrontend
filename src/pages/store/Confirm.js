@@ -25,7 +25,6 @@ const Confirm = () => {
     const fn = async () => {
       e.preventDefault();
 
-      // setOrderDetails({});
       const response = await authFetch(
         "https://artyomdev.pythonanywhere.com/user/order/create/",
         {
@@ -194,7 +193,9 @@ const ConfirmManage = ({
           <button
             className="place-order-btn"
             type="submit"
-            disabled={ucoinsPayment && totalCount > userBalance}
+            disabled={
+              !totalCount || (ucoinsPayment && totalCount > userBalance)
+            }
           >
             Оформить заказ
           </button>

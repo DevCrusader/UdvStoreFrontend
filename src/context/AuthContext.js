@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
   }, [refreshed]);
 
   useEffect(() => {
-    updateUserBalance();
+    if (authTokens) updateUserBalance();
   }, [authTokens]);
 
   return (

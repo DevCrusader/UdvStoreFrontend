@@ -4,7 +4,7 @@
   display: grid;
 
   padding: 0 58px;
-  /* grid-template-columns: 1fr 1fr 1fr; */
+  max-width: 1400px;
   column-gap: auto;
   row-gap: 55px;
 

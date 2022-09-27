@@ -13,7 +13,15 @@
   justify-content: flex-start;
   align-items: center;
 
-  border-bottom: 0.15vw solid #2c2c2c;
+  border-bottom: 2px solid #2c2c2c;
+}
+
+div.header-wrapper::after {
+  display: block;
+  content: "";
+  /* width: 100vw; */
+  height: 61px;
+  background-color: yellow;
 }
 
 .udv-header > ul {
