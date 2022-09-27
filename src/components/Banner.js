@@ -8,7 +8,7 @@ const Banner = () => {
       <List
         data={"МАГАЗИН".split("")}
         renderItem={(item) => item}
-        listClassName={"banner-name"}
+        listClassName={"banner-text"}
       />
     </div>
   );

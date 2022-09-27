@@ -18,7 +18,7 @@ const AdminOrderorder = ({ initialOrder }) => {
         : "Formed";
 
     const response = await authFetch(
-      `https://udvstore.pythonanywhere.com/service-admin/order/${id}/?state=${newState}`,
+      `https://artyomdev.pythonanywhere.com/service-admin/order/${id}/?state=${newState}`,
       {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ const AdminOrderorder = ({ initialOrder }) => {
             <>
               <img
                 className="back-img-center"
-                src={`https://udvstore.pythonanywhere.com/media/images/${item.photo}`}
+                src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
                 alt="Photo"
               />
               <div className="prod-info">

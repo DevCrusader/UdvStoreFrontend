@@ -12,7 +12,7 @@ import UserRegistrationAdminIcon from "../../static/svg/UserRegistrationAdminIco
 
 const AdminMain = () => {
   return (
-    <div className="admin-main container">
+    <div className="admin-main standart-container">
       <Link className="requests vertical v__thin" to="/admin/requests/">
         <img
           className="back-img-center"
@@ -22,7 +22,9 @@ const AdminMain = () => {
         <span>
           <span className="name">Запросы</span>
           <span className="description">
-            Рассмотрение заявок на зачисление юкойнов
+            Рассмотрение заявок на
+            <br />
+            зачисление юкойнов
           </span>
         </span>
       </Link>

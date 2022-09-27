@@ -9,9 +9,9 @@
   align-items: center;
 }
 
-.banner > ul.banner-name {
+.banner > ul.banner-text {
   max-width: 1440px;
-  width: 1440px;
+  width: 100%;
   margin: 0 auto;
 
   font-size: 1.5em;
@@ -21,13 +21,8 @@
 
 @media screen and (min-width: 1440px) {
   .banner {
-    width: 100vw;
-    margin-left: calc(-50vw + 720px);
-  }
-}
-
-@media screen and (max-width: 1440px) {
-  .banner {
+    position: relative;
     width: 100%;
+    /* margin-left: calc(-50vw + 720px); */
   }
 }

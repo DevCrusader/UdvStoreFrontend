@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     if (user) return;
 
-    const url = "https://udvstore.pythonanywhere.com/user/token/";
+    const url = "https://artyomdev.pythonanywhere.com/user/token/";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       return logoutUser();
     }
 
-    const url = "https://udvstore.pythonanywhere.com/user/token/refresh/";
+    const url = "https://artyomdev.pythonanywhere.com/user/token/refresh/";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateUserBalance = async () => {
     const response = await authFetch(
-      "https://udvstore.pythonanywhere.com/user/balance/",
+      "https://artyomdev.pythonanywhere.com/user/balance/",
       {
         method: "GET",
         headers: {
@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
   }, [refreshed]);
 
   useEffect(() => {
-    updateUserBalance();
+    if (authTokens) updateUserBalance();
   }, [authTokens]);
 
   return (

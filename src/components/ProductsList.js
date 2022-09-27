@@ -13,7 +13,7 @@ const ProductsList = ({ theme }) => {
   }, []);
 
   const getProducts = async () => {
-    const url = `https://udvstore.pythonanywhere.com/store/products/?theme=${theme}`;
+    const url = `https://artyomdev.pythonanywhere.com/store/products/?theme=${theme}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -31,7 +31,7 @@ const ProductsList = ({ theme }) => {
   };
 
   return (
-    <div className="store products-list">
+    <div className="store products-list standart-container">
       <List
         data={products}
         renderItem={(item) => (
@@ -41,7 +41,7 @@ const ProductsList = ({ theme }) => {
           >
             <img
               className="contain"
-              src={`https://udvstore.pythonanywhere.com/media/images/${item.photo}`}
+              src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
               alt="photo"
             />
             <NumberWithIcon

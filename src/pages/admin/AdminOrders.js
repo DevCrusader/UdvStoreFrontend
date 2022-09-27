@@ -16,7 +16,7 @@ const AdminOrders = () => {
 
   const getOrdersList = async () => {
     const response = await authFetch(
-      "https://udvstore.pythonanywhere.com/service-admin/orders/",
+      "https://artyomdev.pythonanywhere.com/service-admin/orders/",
       {
         method: "GET",
         Headers: {
@@ -31,7 +31,7 @@ const AdminOrders = () => {
   };
 
   return (
-    <div className="admin-orders container">
+    <div className="admin-orders standart-container">
       <List
         data={orders}
         listClassName={"orders-wrapper"}

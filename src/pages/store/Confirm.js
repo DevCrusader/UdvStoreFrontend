@@ -25,9 +25,8 @@ const Confirm = () => {
     const fn = async () => {
       e.preventDefault();
 
-      // setOrderDetails({});
       const response = await authFetch(
-        "https://udvstore.pythonanywhere.com/user/order/create/",
+        "https://artyomdev.pythonanywhere.com/user/order/create/",
         {
           method: "POST",
           headers: {
@@ -76,7 +75,7 @@ const Confirm = () => {
             renderItem={(item) => (
               <div className="cart-item">
                 <img
-                  src={`https://udvstore.pythonanywhere.com/media/images/${item.photo}`}
+                  src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
                 />
                 <div className="item-info">
                   <Link
@@ -194,7 +193,9 @@ const ConfirmManage = ({
           <button
             className="place-order-btn"
             type="submit"
-            disabled={ucoinsPayment && totalCount > userBalance}
+            disabled={
+              !totalCount || (ucoinsPayment && totalCount > userBalance)
+            }
           >
             Оформить заказ
           </button>
