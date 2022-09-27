@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import List from "../../utils/List";
+import AdminOrderItem from "../../components/AdminOrderItem";
 
 import "../../static/css/adminOrder.css";
-import AdminOrderItem from "../../components/AdminOrderItem";
 
 const AdminOrders = () => {
   const { authFetch } = useContext(AuthContext);
@@ -37,7 +37,9 @@ const AdminOrders = () => {
         listClassName={"orders-wrapper"}
         renderItem={(item) => <AdminOrderItem initialOrder={item} />}
         renderEmpty={
-          <p style={{ color: "white" }}>В настоящий момент нет заказов</p>
+          <p style={{ color: "white", textAlign: "center" }}>
+            В настоящий момент нет заказов
+          </p>
         }
       />
     </div>

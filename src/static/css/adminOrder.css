@@ -84,7 +84,7 @@
 
 .admin-orders > ul.orders-wrapper > li .order-info > .toggle > button {
   font-size: 1em;
-  width: 218px;
+  width: calc(216px + 5px + 5px);
   height: 36px;
   border: 2px solid black;
   border-radius: 15px;
