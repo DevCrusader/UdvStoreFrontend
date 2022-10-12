@@ -5,17 +5,21 @@ import SideCart from "../../components/SideCart";
 import CurrentItemCart from "../../components/CurrentItemCart";
 import ProductPhotos from "../../components/ProductPhotos";
 
-import NumberWithIcon from "../../utils/NumberWIthUcoin";
+import NumberWithIcon from "../../utils/NumberWithUcoin";
 import List from "../../utils/List";
 
 import "../../static/css/productPage.css";
+import { BACKEND_PATH } from "../../Settings";
 
 const _ProductInfo = ({ product }) => {
   return (
     <div className="info">
       <h1>{product?.name}</h1>
       <p>
-        <NumberWithIcon number={product?.price} ucoinColor={"white"} />
+        <NumberWithIcon
+          number={product?.price}
+          ucoinColor={"white"}
+        />
       </p>
       <p>{product?.description}</p>
     </div>
@@ -40,7 +44,9 @@ const Product = ({ productId, type, theme }) => {
   useEffect(() => {
     if (currentItem)
       if (currentItem.type !== type)
-        navigate(`./?productId=${productId}&type=${currentItem.type}`);
+        navigate(
+          `./?productId=${productId}&type=${currentItem.type}`
+        );
   }, [currentItem]);
 
   useEffect(() => {
@@ -49,7 +55,7 @@ const Product = ({ productId, type, theme }) => {
   }, [currentItem]);
 
   const getProductInfo = async () => {
-    const url = `https://artyomdev.pythonanywhere.com/store/products/${productId}/?theme=${productTheme}`;
+    const url = `${BACKEND_PATH}store/products/${productId}/?theme=${productTheme}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -60,7 +66,9 @@ const Product = ({ productId, type, theme }) => {
     const data = await response.json();
 
     if (response.status === 200) {
-      const searchedItem = data.items_list.filter((item) => item.type === type);
+      const searchedItem = data.items_list.filter(
+        (item) => item.type === type
+      );
 
       setProductInfo(data);
       setCurrentItem(

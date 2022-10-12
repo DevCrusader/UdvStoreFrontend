@@ -17,6 +17,7 @@ import Forbidden403 from "./pages/error/Forbidden403";
 
 import "./static/css/main.css";
 import "./static/css/cartItem.css";
+import AdminUserManagement from "./pages/admin/AdminUserManagement";
 
 function App() {
   return (
@@ -27,17 +28,33 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route element={<CartRoutes />}>
               <Route path="udv">
-                <Route path="store" element={<StoreRouter theme={"Udv"} />} />
-                <Route path="confirm" element={<Confirm theme={"Udv"} />} />
+                <Route
+                  path="store"
+                  element={<StoreRouter theme={"Udv"} />}
+                />
+                <Route
+                  path="confirm"
+                  element={<Confirm theme={"Udv"} />}
+                />
               </Route>
               <Route path="ussc">
-                <Route path="store" element={<StoreRouter theme={"Ussc"} />} />
-                <Route path="confirm" element={<Confirm theme={"Ussc"} />} />
+                <Route
+                  path="store"
+                  element={<StoreRouter theme={"Ussc"} />}
+                />
+                <Route
+                  path="confirm"
+                  element={<Confirm theme={"Ussc"} />}
+                />
               </Route>
             </Route>
             <Route path="admin" element={<RoleAccessRoutes />}>
               <Route path="" element={<AdminMain />} />
               <Route path="orders" element={<AdminOrders />} />
+              <Route
+                path="users/management"
+                element={<AdminUserManagement />}
+              />
             </Route>
           </Route>
           <Route path="access-error" element={<Forbidden403 />} />

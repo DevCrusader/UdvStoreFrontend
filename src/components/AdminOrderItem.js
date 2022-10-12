@@ -1,13 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import AuthContext from "../context/AuthContext";
+import useAuthFetch from "../hooks/useAuthFetch";
+import { BACKEND_PATH } from "../Settings";
 import List from "../utils/List";
 
 const AdminOrderorder = ({ initialOrder }) => {
-  const { authFetch } = useContext(AuthContext);
   const [order, setOrder] = useState(initialOrder);
-  const [view, setView] = useState(false);
+  const [view, toggleView] = useReducer((prev) => !prev, false);
 
-  const toggleView = async () => setView(!view);
+  const [fetchParams, setFetchParams] = useState({
+    url: "",
+    options: {},
+  });
+
+  const { loading, data, error } = useAuthFetch(fetchParams);
+
+  useEffect(() => {
+    if (data) {
+      setOrder({ ...order, state: data.state });
+    }
+  }, [data]);
 
   const changeOrderState = async (id) => {
     const newState =
@@ -17,21 +34,15 @@ const AdminOrderorder = ({ initialOrder }) => {
         ? "Completed"
         : "Formed";
 
-    const response = await authFetch(
-      `https://artyomdev.pythonanywhere.com/service-admin/order/${id}/?state=${newState}`,
-      {
+    setFetchParams({
+      url: `${BACKEND_PATH}service-admin/order/${id}/?state=${newState}`,
+      options: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-      }
-    );
-
-    if (response.status === 200) {
-      setOrder({ ...order, state: newState });
-    } else {
-      console.error(response.error);
-    }
+      },
+    });
   };
 
   return (
@@ -55,7 +66,7 @@ const AdminOrderorder = ({ initialOrder }) => {
             <>
               <img
                 className="back-img-center"
-                src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
+                src={`${BACKEND_PATH}media/images/${item.photo}`}
                 alt="Photo"
               />
               <div className="prod-info">
@@ -63,9 +74,13 @@ const AdminOrderorder = ({ initialOrder }) => {
                   {item.name}, {item.count} шт.
                 </div>
                 <div className="type-size">
-                  <span className="type">{item.type.toLowerCase()}</span>
+                  <span className="type">
+                    {item.type.toLowerCase()}
+                  </span>
                   {item.item_size ? (
-                    <span className="size">{item.item_size.toLowerCase()}</span>
+                    <span className="size">
+                      {item.item_size.toLowerCase()}
+                    </span>
                   ) : (
                     <></>
                   )}
@@ -123,7 +138,9 @@ const AdminOrderorder = ({ initialOrder }) => {
           </ul>
           <div className="toggle">
             <button
-              className={`${order.state === "Completed" ? "completed" : ""}`}
+              className={`${
+                order.state === "Completed" ? "completed" : ""
+              }`}
               onClick={() => changeOrderState(order.id)}
             >
               {order.state === "Accepted"

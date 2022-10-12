@@ -1,10 +1,11 @@
-.header {
+.header-wrapper > .header {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 990;
 
   width: 100%;
+  min-width: 780px;
   height: 67px;
   background-color: black;
 
@@ -70,13 +71,13 @@ div.header-wrapper::after {
   align-items: center;
 }
 
-.udv-header > ul > li > a:hover,
-.udv-header > ul > li > span:hover,
-.udv-header > ul > li > button:hover {
+.udv-header > ul > li > *:hover {
+  /* .udv-header > ul > li > span:hover, */
+  /* .udv-header > ul > li > button:hover { */
   cursor: pointer;
   border-color: #00d193;
+  transition-duration: 0.3s;
 }
-
 .udv-header > ul > li > a.store {
   display: inline-block;
 

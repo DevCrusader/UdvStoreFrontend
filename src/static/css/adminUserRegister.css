@@ -1,0 +1,183 @@
+.user-registration > .reg-user-btn {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 15px;
+
+  background-color: #000;
+
+  border: 2px solid #525252;
+
+  color: #525252;
+  font-size: 1em;
+
+  padding: 11px 0;
+
+  margin: 24px 0;
+}
+
+.user-registration > .reg-user-btn:hover {
+  color: #8f8f8f;
+}
+
+.user-registration > .registration-popup .body > form > div.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form
+  > div.main
+  .user-personal-info {
+  margin-right: 7%;
+}
+
+@media screen and (max-width: 550px) {
+  .user-registration > .registration-popup .body > form > div.main {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
+
+  .user-registration
+    > .registration-popup
+    .body
+    > form
+    > div.main
+    .user-personal-info {
+    margin-right: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d9d9d9;
+  }
+}
+
+/* .user-registration > .registration-popup .body > form span.form-item {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 10px 0;
+} */
+
+.user-registration > .registration-popup .body > form label + input {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form
+  input[type="text"],
+.user-registration > .registration-popup .body > form select {
+  box-sizing: border-box;
+  padding: 5px 10px;
+  margin-top: 10px;
+  width: 200px;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form
+  button[type="submit"] {
+  border-radius: 15px;
+  border: 2px solid #000;
+  background-color: #fff;
+
+  color: #000;
+  padding: 8px 16px;
+  display: block;
+  margin: 20px auto auto;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form
+  > div.main
+  input[type="text"] {
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  margin-top: 10px;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form[class="invalid-form"]
+  > div.main
+  input[type="text"]:invalid {
+  border: 1px solid red;
+}
+
+.user-registration > .registration-popup .body > form div.valid-text {
+  visibility: hidden;
+
+  font-size: 0.7em;
+  color: rgba(0, 0, 0, 0.5);
+  max-width: 200px;
+  margin: 15px auto 0;
+  text-align: start;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  > form[class="invalid-form"]
+  input:invalid
+  ~ div.valid-text {
+  visibility: visible;
+}
+
+.user-registration > .registration-popup .body > form div.error-msg {
+  font-size: 0.7em;
+  color: rgba(182, 35, 35, 0.75);
+  max-width: 200px;
+  text-align: start;
+
+  margin-top: 10%;
+}
+
+.user-registration > .registration-popup .body div.success-msg {
+  height: max-content;
+
+  width: 80%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 20px 10% 0;
+  margin: 20px auto;
+
+  /* background-image: url("../svg/OderBackdecoration.svg");
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat; */
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  div.success-msg
+  button {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+
+  padding: 8px 16px;
+
+  margin-top: 15%;
+}
+
+.user-registration
+  > .registration-popup
+  .body
+  div.success-msg
+  button:not(:last-child) {
+  margin-right: 5%;
+}
+
+.user-registration > .registration-popup .body button:hover {
+  color: #525252 !important;
+}

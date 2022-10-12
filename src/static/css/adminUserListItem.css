@@ -1,0 +1,112 @@
+li > div.user-item {
+  width: 100%;
+
+  color: black;
+  background-color: white;
+  border-radius: 15px;
+  box-sizing: border-box;
+
+  padding: 29px 0;
+  padding-left: 33px;
+}
+
+li > div.user-item.deleted {
+  background-color: #d9d9d9;
+}
+
+li > div.user-item > .user-info {
+  display: flex;
+  align-items: center;
+}
+
+li > div.user-item > .error {
+  color: red;
+  font-size: 0.8em;
+  height: 2em;
+
+  margin: 5px 0;
+}
+
+li > div.user-item > .user-info > span:not(:last-child) {
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: 2px solid #d1d1d1;
+  width: max-content;
+}
+
+li > div.user-item > .user-mng > button {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+
+  padding: 7px 18px;
+}
+
+li > div.user-item > .user-mng > button:hover {
+  color: #525252;
+  transition-duration: 0.3s;
+}
+
+li > div.user-item > .user-mng > button:not(:last-child) {
+  margin-right: 7px;
+}
+
+.add-ucoin-popup div.body form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: max-content;
+
+  margin: 0 auto;
+}
+
+.add-ucoin-popup div.body form input,
+.add-ucoin-popup div.body form textarea {
+  appearance: none;
+  border: none;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  font-size: 1em;
+
+  padding: 5px 10px;
+
+  margin: 8px 0 20px;
+}
+
+#ucoin-count {
+  width: 100px;
+}
+
+.add-ucoin-popup div.body button {
+  /* width: 161px; */
+  padding: 9px 30px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  width: fit-content;
+
+  margin: 10px auto;
+}
+
+.add-ucoin-popup div.body form span.error {
+  visibility: hidden;
+
+  font-size: 0.8em;
+  height: 4em;
+  color: red;
+}
+
+.add-ucoin-popup div.body form.invalid span.error {
+  visibility: visible;
+}
+
+.add-ucoin-popup div.body .success-request {
+  width: max-content;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.add-ucoin-popup div.body .success-request button {
+  margin: 50px auto;
+}

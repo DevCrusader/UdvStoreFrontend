@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { findIndex } from "underscore";
+import useAuthFetch from "../hooks/useAuthFetch";
+import { BACKEND_PATH } from "../Settings";
 import AuthContext from "./AuthContext";
 
 const CartContext = createContext();
@@ -6,7 +14,7 @@ const CartContext = createContext();
 export default CartContext;
 
 export const CartProvider = ({ children }) => {
-  const { authFetch } = useContext(AuthContext);
+  const { authTokens } = useContext(AuthContext);
 
   const [cart, setCart] = useState(
     localStorage.getItem("userCart")
@@ -14,13 +22,48 @@ export const CartProvider = ({ children }) => {
       : null
   );
 
+  const [fetchParams, setFetchParams] = useState({
+    url: "",
+    options: {},
+  });
+
+  const { loading, data, error } = useAuthFetch(fetchParams);
+
   useEffect(() => {
     if (!cart) loadCart();
   }, [cart]);
 
-  const successResponse = (data) => {
-    setCart(data);
-    localStorage.setItem("userCart", JSON.stringify(data));
+  useEffect(() => {
+    if (data && typeof data === "object") {
+      if (typeof data.length === "number") {
+        successResponse([...(cart ? cart : []), ...data]);
+      } else {
+        if (!cart) return successResponse([data]);
+
+        const index = findIndex(
+          cart,
+          (item) =>
+            item.product_id === data.product_id &&
+            item.type === data.type &&
+            item.item_size === data.item_size
+        );
+
+        if (index === -1) return successResponse([...cart, data]);
+
+        if (data.id === null) {
+          return successResponse([...cart.removeByIndex(index)]);
+        }
+
+        return successResponse([
+          ...cart.insertWithDelete(index, data),
+        ]);
+      }
+    }
+  }, [data]);
+
+  const successResponse = (newCart) => {
+    setCart([...newCart]);
+    localStorage.setItem("userCart", JSON.stringify(newCart));
   };
 
   const reloadCart = async () => setCart(null);
@@ -28,24 +71,16 @@ export const CartProvider = ({ children }) => {
   const loadCart = async () => {
     if (cart) return;
 
-    console.log("Load cart");
-    const response = await authFetch(
-      "https://artyomdev.pythonanywhere.com/store/cart/",
-      {
+    setFetchParams({
+      url: BACKEND_PATH + "store/cart/",
+      options: {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.access,
         },
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.status === 200) {
-      successResponse(data);
-    } else {
-      console.error(response);
-    }
+      },
+    });
   };
 
   const increaseItemCount = async (id) => {
@@ -53,107 +88,77 @@ export const CartProvider = ({ children }) => {
 
     if (item && item.count === 10) return;
 
-    const newCart = cart.map((item) =>
-      item.id === id ? { ...item, count: item.count + 1 } : item
-    );
-
-    const response = await authFetch(
-      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
-      {
+    setFetchParams({
+      url: BACKEND_PATH + `store/cart/${id}/`,
+      options: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.access,
         },
         body: JSON.stringify({
           action: "add",
         }),
-      }
-    );
-
-    if (response.status === 200) {
-      successResponse(newCart);
-    } else {
-      console.error(response);
-    }
+      },
+    });
   };
 
   const decreaseItemCount = async (id) => {
     if (cart.filter((item) => item.id === id)[0]?.count === 1)
       return deleteItem(id);
 
-    const newCart = cart.map((item) =>
-      item.id === id ? { ...item, count: item.count - 1 } : item
-    );
-
-    const response = await authFetch(
-      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
-      {
+    setFetchParams({
+      url: BACKEND_PATH + `store/cart/${id}/`,
+      options: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.access,
         },
         body: JSON.stringify({
           action: "remove",
         }),
-      }
-    );
-
-    if (response.status === 200) {
-      successResponse(newCart);
-    } else {
-      console.error(response);
-    }
+      },
+    });
   };
 
   const deleteItem = async (id) => {
-    const newCart = cart.filter((item) => item.id !== id);
-
-    const response = await authFetch(
-      `https://artyomdev.pythonanywhere.com/store/cart/${id}/`,
-      {
+    setFetchParams({
+      url: BACKEND_PATH + `store/cart/${id}/`,
+      options: {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.access,
         },
-      }
-    );
-
-    if (response.status === 200) {
-      successResponse(newCart);
-    } else {
-      console.error(response);
-    }
+      },
+    });
   };
 
   const addItem = async (productId, type, size) => {
-    const response = await authFetch(
-      "https://artyomdev.pythonanywhere.com/store/cart/add/",
-      {
+    setFetchParams({
+      url: BACKEND_PATH + "store/cart/add/",
+      options: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.access,
         },
         body: JSON.stringify({
           productId,
           type,
           size,
         }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.status === 200) {
-      successResponse([...cart, data]);
-    } else {
-      console.error(response);
-    }
+      },
+    });
   };
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        loading,
+        error,
         addItem,
         increaseItemCount,
         decreaseItemCount,

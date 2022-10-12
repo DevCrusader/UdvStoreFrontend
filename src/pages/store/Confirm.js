@@ -1,55 +1,82 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import CartContext from "../../context/CartContext";
 import List from "../../utils/List";
-import NumberWithIcon from "../../utils/NumberWIthUcoin";
+import NumberWithIcon from "../../utils/NumberWithUcoin";
 import "../../static/css/confirmPage.css";
+import useAuthFetch from "../../hooks/useAuthFetch";
+import { BACKEND_PATH } from "../../Settings";
 
 const Confirm = () => {
-  const { cart, increaseItemCount, decreaseItemCount, deleteItem, reloadCart } =
-    useContext(CartContext);
+  const {
+    cart,
+    increaseItemCount,
+    decreaseItemCount,
+    deleteItem,
+    reloadCart,
+  } = useContext(CartContext);
 
-  const { user, authFetch, updateUserBalance } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, changeUserBalance } = useContext(AuthContext);
+
+  const [fetchParams, setFetchParams] = useState({
+    url: "",
+    options: {},
+  });
+
+  const { loading, data, error } = useAuthFetch(fetchParams);
 
   const [orderDetails, setOrderDetails] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     reloadCart();
   }, []);
 
+  useEffect(() => {
+    console.log("Get Data!");
+    if (data) {
+      console.log("Get Data!");
+
+      setOrderDetails(data);
+      reloadCart();
+      changeUserBalance(
+        "decrease",
+        data.products.reduce(
+          (prev, next) => prev + next.count * next.price,
+          0
+        )
+      );
+    }
+  }, [data]);
+
   const returnToStore = () => navigate("/udv/store/");
 
-  const placeOrder = useCallback((e) => {
-    const fn = async () => {
-      e.preventDefault();
+  const placeOrder = async (e) => {
+    e.preventDefault();
 
-      const response = await authFetch(
-        "https://artyomdev.pythonanywhere.com/user/order/create/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            office: e.target.office.value,
-            paymentMethod: e.target.paymentMethod.checked ? "ucoins" : "rubles",
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        setOrderDetails(data);
-        reloadCart();
-        updateUserBalance();
-      }
-    };
-
-    fn();
-  }, []);
+    setFetchParams({
+      url: BACKEND_PATH + "user/order/create/",
+      options: {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          office: e.target.office.value,
+          paymentMethod: e.target.paymentMethod.checked
+            ? "ucoins"
+            : "rubles",
+        }),
+      },
+    });
+  };
 
   return (
     <>
@@ -75,7 +102,7 @@ const Confirm = () => {
             renderItem={(item) => (
               <div className="cart-item">
                 <img
-                  src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
+                  src={`${BACKEND_PATH}media/images/${item.photo}`}
                 />
                 <div className="item-info">
                   <Link
@@ -101,7 +128,10 @@ const Confirm = () => {
                         +
                       </button>
                     </span>
-                    <NumberWithIcon number={item.price} ucoinColor={"white"} />
+                    <NumberWithIcon
+                      number={item.price}
+                      ucoinColor={"white"}
+                    />
                   </div>
                 </div>
                 <div className="item-delete">
@@ -119,7 +149,10 @@ const Confirm = () => {
           <ConfirmManage
             totalCount={
               cart
-                ? cart.reduce((prev, next) => prev + next.count * next.price, 0)
+                ? cart.reduce(
+                    (prev, next) => prev + next.count * next.price,
+                    0
+                  )
                 : 0
             }
             userBalance={user.balance}
@@ -194,7 +227,8 @@ const ConfirmManage = ({
             className="place-order-btn"
             type="submit"
             disabled={
-              !totalCount || (ucoinsPayment && totalCount > userBalance)
+              !totalCount ||
+              (ucoinsPayment && totalCount > userBalance)
             }
           >
             Оформить заказ

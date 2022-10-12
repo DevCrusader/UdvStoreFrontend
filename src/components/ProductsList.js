@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import List from "../utils/List";
 import { Link } from "react-router-dom";
-import NumberWithIcon from "../utils/NumberWIthUcoin";
+import NumberWithIcon from "../utils/NumberWithUcoin";
+import { BACKEND_PATH } from "../Settings";
 
 import "../static/css/productsList.css";
 
@@ -13,7 +14,7 @@ const ProductsList = ({ theme }) => {
   }, []);
 
   const getProducts = async () => {
-    const url = `https://artyomdev.pythonanywhere.com/store/products/?theme=${theme}`;
+    const url = `${BACKEND_PATH}store/products/?theme=${theme}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -41,7 +42,7 @@ const ProductsList = ({ theme }) => {
           >
             <img
               className="contain"
-              src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
+              src={`${BACKEND_PATH}media/images/${item.photo}`}
               alt="photo"
             />
             <NumberWithIcon

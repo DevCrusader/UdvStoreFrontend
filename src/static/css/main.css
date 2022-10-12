@@ -13,11 +13,13 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
   font-size: 19px;
+
+  min-width: 780px;
 }
 
 a,
 button {
-  font-family: "Roboto", sans-serif;
+  font-family: inherit;
 }
 
 ul {
@@ -32,6 +34,11 @@ ul {
   margin: 0 auto;
 }
 
+.inner-container {
+  max-width: 886px;
+  margin: 0 auto;
+}
+
 .back-img-center {
   background-position: 50%;
   background-repeat: no-repeat;
@@ -41,6 +48,12 @@ ul {
 button {
   border: none;
   appearance: none;
+  font-size: 1em;
+}
+
+form input,
+form select {
+  font-size: 1em;
 }
 
 button:not(:disabled):hover,

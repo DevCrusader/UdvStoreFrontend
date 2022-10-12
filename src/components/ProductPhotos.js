@@ -1,5 +1,6 @@
 import React, { useState, memo, useEffect } from "react";
 import List from "../utils/List";
+import { BACKEND_PATH } from "../Settings";
 
 const _ProductPhotos = ({ photos = [] }) => {
   // Компонент отрисовывает фотографии, переданные от текущего выбранного товара на странице товара
@@ -14,7 +15,7 @@ const _ProductPhotos = ({ photos = [] }) => {
     <div className="photo-list">
       <img
         className="current-photo back-img-center"
-        src={`https://artyomdev.pythonanywhere.com/media/images/${photos[currentPhoto]}`}
+        src={`${BACKEND_PATH}media/images/${photos[currentPhoto]}`}
         alt={`photo #${currentPhoto}`}
       />
       {photos ? (
@@ -33,7 +34,7 @@ const _ProductPhotos = ({ photos = [] }) => {
                 />
                 <label htmlFor={`photo-${index}`}>
                   <img
-                    src={`https://artyomdev.pythonanywhere.com/media/images/${photo}`}
+                    src={`${BACKEND_PATH}media/images/${photo}`}
                     alt={`photo #${index}`}
                   />
                 </label>

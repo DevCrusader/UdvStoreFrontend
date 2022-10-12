@@ -2,19 +2,16 @@ import React, { memo, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartContext from "../context/CartContext";
 import List from "../utils/List";
-import NumberWithIcon from "../utils/NumberWIthUcoin";
+import NumberWithIcon from "../utils/NumberWithUcoin";
+import { BACKEND_PATH } from "../Settings";
 
 import "../static/css/sideCart.css";
 
 const PureSideCart = () => {
-  const { cart, increaseItemCount, decreaseItemCount, deleteItem, loadCart } =
+  const { cart, increaseItemCount, decreaseItemCount, deleteItem } =
     useContext(CartContext);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    loadCart();
-  }, []);
 
   const openSideCart = () => {
     const element = document.getElementById("side-cart");
@@ -33,7 +30,9 @@ const PureSideCart = () => {
   const cartitemsCount = (length) =>
     [
       length,
-      (length > 10 && length < 20) || length % 10 > 4 || length % 10 === 0
+      (length > 10 && length < 20) ||
+      length % 10 > 4 ||
+      length % 10 === 0
         ? "товаров"
         : length % 10 === 1
         ? "товар"
@@ -54,7 +53,7 @@ const PureSideCart = () => {
           renderItem={(item) => (
             <div className="cart-item">
               <img
-                src={`https://artyomdev.pythonanywhere.com/media/images/${item.photo}`}
+                src={`${BACKEND_PATH}media/images/${item.photo}`}
               />
               <div className="item-info">
                 <Link
@@ -80,7 +79,10 @@ const PureSideCart = () => {
                       +
                     </button>
                   </span>
-                  <NumberWithIcon number={item.price} ucoinColor={"white"} />
+                  <NumberWithIcon
+                    number={item.price}
+                    ucoinColor={"white"}
+                  />
                 </div>
               </div>
               <div className="item-delete">
@@ -102,7 +104,8 @@ const PureSideCart = () => {
                   number={
                     cart
                       ? cart.reduce(
-                          (prev, next) => prev + next.count * next.price,
+                          (prev, next) =>
+                            prev + next.count * next.price,
                           0
                         )
                       : 0

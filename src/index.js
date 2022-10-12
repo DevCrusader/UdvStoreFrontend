@@ -10,6 +10,16 @@ Object.defineProperty(String.prototype, "capitalize", {
   enumerable: false,
 });
 
+Array.prototype.insertWithDelete = function (index, ...items) {
+  this.splice(index, items.length, ...items);
+  return this;
+};
+
+Array.prototype.removeByIndex = function (index) {
+  if (index >= 0 && index < this.length) this.splice(index, 1);
+  return this;
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>

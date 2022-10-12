@@ -8,6 +8,8 @@ button.absolute-side-cart-btn {
   background-color: black;
   color: white;
 
+  width: max-content;
+
   padding: 15px;
   padding-left: 50px;
   background-image: url("../svg/CartIcon.svg");
@@ -60,7 +62,7 @@ button.absolute-side-cart-btn:hover {
   /* Make adaptive */
   padding: 10px;
   padding-right: 50px;
-  background-image: url("../svg/CloseCartIcon.svg");
+  background-image: url("../svg/CloseIconWhite.svg");
   background-position-x: 85%;
   background-position-y: 53%;
   background-size: 14%;
@@ -70,15 +72,7 @@ button.absolute-side-cart-btn:hover {
   height: calc(100% - 69px - 100px - 20px - 20px);
   padding: 20px;
   padding-right: 30px;
-  overflow-x: scroll;
-
-  scrollbar-width: auto;
-
-  /* Так у artlebedev */
-  scrollbar-width: thin;
-
-  /* Move scrollbar on left size => mirroring block content */
-  /*  direction: rtl; */
+  overflow-x: hidden;
 }
 
 #side-cart > footer {

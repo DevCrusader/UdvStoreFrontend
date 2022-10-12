@@ -1,14 +1,13 @@
 import jwtDecode from "jwt-decode";
-import React, { createContext, useEffect, useState, useReducer } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_PATH } from "../Settings";
 
 const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
-
   const [user, setUser] = useState(
     localStorage.getItem("userTokens")
       ? jwtDecode(localStorage.getItem("userTokens"))
@@ -20,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       : null
   );
 
+  const navigate = useNavigate();
   const [refreshed, setRefreshed] = useState(false);
 
   const successResponse = async (data) => {
@@ -32,19 +32,18 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async (e) => {
     e.preventDefault();
 
-    console.log("tryToLogin");
-
     if (user) return;
 
-    const url = "https://artyomdev.pythonanywhere.com/user/token/";
+    const url = BACKEND_PATH + "user/token/";
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
+        username: e.target.username.value.trim(),
+        password: e.target.password.value.trim(),
       }),
     });
 
@@ -52,10 +51,10 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 200) {
       successResponse(data);
-      navigate("udv/store/");
-    } else {
-      alert("Something went wrong...");
+      return navigate("udv/store/");
     }
+
+    return response.status;
   };
 
   const updateToken = async () => {
@@ -64,7 +63,8 @@ export const AuthProvider = ({ children }) => {
       return logoutUser();
     }
 
-    const url = "https://artyomdev.pythonanywhere.com/user/token/refresh/";
+    const url = BACKEND_PATH + "user/token/refresh/";
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 200) {
       successResponse(data);
-      return data.access;
+      return data;
     }
 
     logoutUser();
@@ -96,60 +96,24 @@ export const AuthProvider = ({ children }) => {
     navigate("/login/");
   };
 
-  const authFetch = async (url, options) => {
-    const _fetch = async (token) => {
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...options.headers,
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const changeUserBalance = async (action, count) => {
+    let newBalance = user.balance;
 
-      return response;
-    };
-
-    const firstRes = await _fetch(new String(authTokens?.access));
-
-    if (firstRes.status === 401) {
-      const updatedAccessToken = await updateToken();
-      if (!updatedAccessToken) return;
-
-      const secondaryRes = await _fetch(updatedAccessToken);
-
-      if (secondaryRes.status === 401) {
-        return logoutUser();
-      }
-      return secondaryRes;
-    } else {
-      return firstRes;
+    if (action === "increase") {
+      newBalance += count;
     }
-  };
 
-  const updateUserBalance = async () => {
-    const response = await authFetch(
-      "https://artyomdev.pythonanywhere.com/user/balance/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    if (action === "decrease") {
+      newBalance -= count;
+    }
 
-    const data = await response.json();
-
-    if (response.status === 200)
-      if (user) setUser({ ...user, balance: data.balance });
+    setUser({ ...user, balance: newBalance });
   };
 
   useEffect(() => {
-    if (refreshed) setTimeout(() => setRefreshed(false), 9 * 60 * 1000);
+    if (refreshed)
+      setTimeout(() => setRefreshed(false), 14 * 60 * 1000);
   }, [refreshed]);
-
-  useEffect(() => {
-    if (authTokens) updateUserBalance();
-  }, [authTokens]);
 
   return (
     <AuthContext.Provider
@@ -158,9 +122,8 @@ export const AuthProvider = ({ children }) => {
         authTokens,
         updateToken,
         loginUser,
-        authFetch,
         logoutUser,
-        updateUserBalance,
+        changeUserBalance,
       }}
     >
       {children}

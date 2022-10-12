@@ -13,7 +13,7 @@ div.login-wrapper > form {
 div.login-wrapper > form > .decoration {
   display: flex;
 
-  margin-left: -45px;
+  /* margin-left: -45px; */
 }
 
 div.login-wrapper > form > .decoration > img {
@@ -35,17 +35,29 @@ div.login-wrapper > form > .form-body {
   margin-top: 32px;
 }
 
-div.login-wrapper > form > .form-body > input:not([type="submit"]) {
-  appearance: none;
+div.login-wrapper
+  > form
+  > .form-body
+  > input:not([type="submit"], [type="checkbox"]) {
   color: white;
   background-color: black;
 
-  width: 270px;
+  width: 351px;
+  box-sizing: border-box;
   border: 2px solid white;
   border-radius: 15px;
 
   font-size: 1em;
   padding: 15px;
+}
+
+div.login-wrapper > form > .form-body input[type="checkbox"] {
+  aspect-ratio: 1 / 1;
+  width: 19px;
+}
+
+div.login-wrapper > form > .form-body input + div {
+  margin-top: 5px;
 }
 
 div.login-wrapper > form > .form-body > label {
@@ -76,6 +88,16 @@ div.login-wrapper > form > .form-body > input[type="submit"]:hover {
   /* transition-duration: 0.5s; */
 }
 
-div.login-wrapper > form > .form-body > a {
-  color: #767676;
+div.login-wrapper > form > .form-body > div.error-msg {
+  visibility: hidden;
+  margin-top: 15px;
+
+  font-size: 0.75em;
+  max-width: 351px;
+  text-align: center;
+}
+
+div.login-wrapper > form.error > .form-body > div.error-msg {
+  visibility: visible;
+  color: rgb(202, 64, 64);
 }

@@ -4,9 +4,16 @@ import List from "../../utils/List";
 import AdminOrderItem from "../../components/AdminOrderItem";
 
 import "../../static/css/adminOrder.css";
+import useAuthFetch from "../../hooks/useAuthFetch";
+import { BACKEND_PATH } from "../../Settings";
 
 const AdminOrders = () => {
-  const { authFetch } = useContext(AuthContext);
+  const [fetchParams, setFetchParams] = useState({
+    url: "",
+    options: {},
+  });
+
+  const { loading, data, error } = useAuthFetch(fetchParams);
 
   const [orders, setOrders] = useState(null);
 
@@ -14,20 +21,20 @@ const AdminOrders = () => {
     getOrdersList();
   }, []);
 
+  useEffect(() => {
+    if (data) setOrders(data);
+  }, [data]);
+
   const getOrdersList = async () => {
-    const response = await authFetch(
-      "https://artyomdev.pythonanywhere.com/service-admin/orders/",
-      {
+    setFetchParams({
+      url: BACKEND_PATH + "service-admin/orders/",
+      options: {
         method: "GET",
         Headers: {
           "Content-Type": "application/json",
         },
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.status === 200) setOrders(data);
+      },
+    });
   };
 
   return (
