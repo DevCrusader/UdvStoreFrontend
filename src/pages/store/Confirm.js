@@ -212,16 +212,16 @@ const ConfirmManage = ({
             </>
           )}
         />
-        <div>
-          {/* <label htmlFor="paymentMethod">Оплачу юкоинами: </label> */}
-          <input
-            type="hidden"
-            id="paymentMethod"
-            name="paymentMethod"
-            checked={ucoinsPayment}
-            onChange={() => setUcoinsPayment(!ucoinsPayment)}
-          />
-        </div>
+        {/* <div> */}
+        {/* <label htmlFor="paymentMethod">Оплачу юкоинами: </label> */}
+        <input
+          type="hidden"
+          id="paymentMethod"
+          name="paymentMethod"
+          checked={ucoinsPayment}
+          onChange={() => setUcoinsPayment(!ucoinsPayment)}
+        />
+        {/* </div> */}
         <div className="mng-btns">
           <button
             className="place-order-btn"
