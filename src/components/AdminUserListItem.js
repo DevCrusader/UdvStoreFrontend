@@ -161,7 +161,7 @@ const AdminUserListItem = ({
                     </button>
                   </>
                 )}
-                {user.role === Roles.Moderator && (
+                {/* {user.role === Roles.Moderator && (
                   <>
                     <button
                       onClick={() => changeUserRole(Roles.Employee)}
@@ -169,7 +169,7 @@ const AdminUserListItem = ({
                       Зарать права модератора
                     </button>
                   </>
-                )}
+                )} */}
               </>
             ) : (
               <></>

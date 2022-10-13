@@ -10,7 +10,11 @@ const useDelay = (func = (f) => f, intialDelay = 1500) => {
     setTimeoutId(setTimeout(() => setData(func(args)), intialDelay));
   };
 
-  return [handleDelay, data];
+  const clearQueue = () => {
+    if (timeoutId) clearTimeout(timeoutId);
+  };
+
+  return [handleDelay, clearQueue, data];
 };
 
 export default useDelay;

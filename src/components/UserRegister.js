@@ -174,7 +174,7 @@ const UserRegister = ({
                     {/* </span> */}
                     {errorMsg ? (
                       <div className="error-msg">
-                        Error: {errorMsg}
+                        Error: {JSON.stringify(errorMsg)}
                       </div>
                     ) : (
                       <></>
