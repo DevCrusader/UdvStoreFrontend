@@ -213,9 +213,9 @@ const ConfirmManage = ({
           )}
         />
         <div>
-          <label htmlFor="paymentMethod">Оплачу юкоинами: </label>
+          {/* <label htmlFor="paymentMethod">Оплачу юкоинами: </label> */}
           <input
-            type="checkbox"
+            type="hidden"
             id="paymentMethod"
             name="paymentMethod"
             checked={ucoinsPayment}
