@@ -4,4 +4,4 @@ export const Roles = {
   Employee: "Employee",
 };
 
-export const BACKEND_PATH = "http://localhost:8000/";
+export const BACKEND_PATH = "https://artyomdev.pythonanywhere.com/";
