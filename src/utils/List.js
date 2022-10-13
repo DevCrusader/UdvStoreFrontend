@@ -5,11 +5,14 @@ const List = ({
   listClassName = "",
   renderItem,
   renderEmpty = <p>List is empty</p>,
+  keyByItemId = "",
 }) => {
   return data && data.length ? (
     <ul className={listClassName}>
       {data.map((item, i) => (
-        <li key={i}>{renderItem(item, i)}</li>
+        <li key={keyByItemId ? item[keyByItemId] : i}>
+          {renderItem(item, i)}
+        </li>
       ))}
     </ul>
   ) : (

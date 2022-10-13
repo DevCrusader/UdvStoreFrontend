@@ -9,8 +9,8 @@ export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
-    localStorage.getItem("userTokens")
-      ? jwtDecode(localStorage.getItem("userTokens"))
+    localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
       : null
   );
   const [authTokens, setAuthTokens] = useState(
@@ -25,8 +25,14 @@ export const AuthProvider = ({ children }) => {
   const successResponse = async (data) => {
     setRefreshed(true);
     setAuthTokens(data);
-    setUser(jwtDecode(data.access));
+
+    saveUserInfo(jwtDecode(data.access));
     localStorage.setItem("userTokens", JSON.stringify(data));
+  };
+
+  const saveUserInfo = async (data) => {
+    setUser(data);
+    localStorage.setItem("userInfo", JSON.stringify(data));
   };
 
   const loginUser = async (e) => {
@@ -107,7 +113,7 @@ export const AuthProvider = ({ children }) => {
       newBalance -= count;
     }
 
-    setUser({ ...user, balance: newBalance });
+    saveUserInfo({ ...user, balance: newBalance });
   };
 
   useEffect(() => {

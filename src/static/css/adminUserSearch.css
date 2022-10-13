@@ -11,8 +11,67 @@ div.user-search input[type="text"] {
   background-repeat: no-repeat;
   background-size: auto;
   background-position: 98% 50%;
+
+  margin-bottom: 15px;
 }
 
 div.user-search input[type="text"]::placeholder {
   text-align: center;
+}
+
+div.user-search > .error-place {
+  padding-top: 15px;
+  font-size: 0.8em;
+  height: 3em;
+
+  color: red;
+}
+
+div.user-search ul > li > button {
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+  position: relative;
+  left: 80%;
+  bottom: 134px;
+
+  padding-right: 40px;
+
+  filter: opacity(0.6);
+
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: 90% 50%;
+}
+
+div.user-search ul > li > button:not(:disabled):hover {
+  filter: opacity(1);
+  transition-duration: 0.3s;
+}
+
+div.user-search ul > li > button:disabled {
+  filter: opacity(0.25);
+}
+
+div.user-search ul > li > button.pin {
+  background-image: url("../svg/PinIcon.svg");
+}
+
+div.user-search ul > li > button.unpin {
+  background-image: url("../svg/UnPinIcon.svg");
+}
+
+div.user-search ul.pinned-list::before {
+  content: "Закрепленные пользователи";
+  display: block;
+  color: #4f4f4f;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+div.user-search ul.user-search-list::before {
+  content: "Найденные пользователи";
+  display: block;
+  color: #4f4f4f;
+  width: 100%;
+  padding-bottom: 15px;
 }

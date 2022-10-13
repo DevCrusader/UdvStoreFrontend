@@ -1,15 +1,11 @@
 import React, { useEffect, memo, useReducer, useState } from "react";
+import { BACKEND_PATH, Roles } from "../Settings";
+import useAuthFetch from "../hooks/useAuthFetch";
 import List from "../utils/List";
-import AdminUserListItem from "./AdminUserListItem";
 
 import "../static/css/userRoleManagement.css";
-import { BACKEND_PATH } from "../Settings";
 
 const UsersRole = ({ userRole, role = "", transfered = [] }) => {
-  useEffect(() => {
-    console.log(`Render Additional Component ${role}`);
-  });
-
   const [roleUsers, setRoleUsers] = useState(null);
   const [expand, toggleExpand] = useReducer(
     (expand) => !expand,
@@ -70,9 +66,9 @@ const UsersRole = ({ userRole, role = "", transfered = [] }) => {
           <List
             data={[...transfered, ...roleUsers]}
             renderItem={(item) => (
-              <AdminUserListItem
+              <ListItem
                 userObj={item}
-                curUserRole={userRole}
+                permission={userRole === Roles.Administrator}
               />
             )}
           />
@@ -90,3 +86,72 @@ const MemoUsersRoleComponent = memo(
 );
 
 export default MemoUsersRoleComponent;
+
+const ListItem = ({ userObj = {}, permission = false }) => {
+  const [fetchParams, setFetchParams] = useState({
+    url: "",
+    options: {},
+  });
+
+  const { loading, data, error } = useAuthFetch(fetchParams);
+  const [user, setUser] = useState(userObj);
+
+  useEffect(() => {
+    if (data) setUser(data);
+  }, [data]);
+
+  const changeUserRole = async (newRole) => {
+    if (!permission) return;
+
+    setFetchParams({
+      url: BACKEND_PATH + `service-admin/user/role/${user.user_id}/`,
+      options: {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role: newRole,
+        }),
+      },
+    });
+  };
+
+  return (
+    <>
+      {permission && user.role === Roles.Moderator ? (
+        <button
+          style={{
+            backgroundColor: "rgba(0,0,0,0)",
+            color: "#FF5454",
+            marginRight: "25px",
+          }}
+          onClick={() => changeUserRole(Roles.Employee)}
+          className="remove-user-role-btn"
+        >
+          Разжаловать
+        </button>
+      ) : (
+        <>
+          {user.role === Roles.Employee && (
+            <button
+              style={{
+                backgroundColor: "rgba(0,0,0,0)",
+                color: "#95FF54",
+                marginRight: "25px",
+              }}
+              onClick={() => changeUserRole(Roles.Moderator)}
+            >
+              Вернуть роль
+            </button>
+          )}
+        </>
+      )}
+      <span>{user.name}</span>
+      <span>{loading ? "Loading..." : ""}</span>
+      <span style={{ color: "red" }}>
+        {error ? error?.message : ""}
+      </span>
+    </>
+  );
+};

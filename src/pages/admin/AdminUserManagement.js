@@ -20,8 +20,11 @@ const AdminUserManagement = () => {
     moderator: [],
   });
 
-  const addUser = async (user, role = "moderator") =>
-    setTransfer({ ...transfer, [role]: [...transfer[role], user] });
+  const addUser = async (user, role = "moderator") => {
+    if (transfer[role]) {
+      setTransfer({ ...transfer, [role]: [...transfer[role], user] });
+    }
+  };
 
   return (
     <div className="standart-container user-mng">
