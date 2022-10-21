@@ -58,9 +58,7 @@ const Confirm = () => {
 
   const returnToStore = () => navigate("/udv/store/");
 
-  const placeOrder = async (e) => {
-    e.preventDefault();
-
+  const placeOrder = async (office, paymentMethod) => {
     setFetchParams({
       url: BACKEND_PATH + "user/order/create/",
       options: {
@@ -69,10 +67,8 @@ const Confirm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          office: e.target.office.value,
-          paymentMethod: e.target.paymentMethod.checked
-            ? "ucoins"
-            : "rubles",
+          office,
+          paymentMethod,
         }),
       },
     });
@@ -86,11 +82,18 @@ const Confirm = () => {
             <h3>Ваш заказ успешно сформирован</h3>
             <div>
               <p>Номер заказа: {orderDetails.id}</p>
-              <p>Способ оплаты: {orderDetails.payment_method}</p>
               <p>Место получения: {orderDetails.office}</p>
             </div>
-            <div>
-              <p>Какие-нибудь детали самого заказа</p>
+            <div style={{ width: "400px" }}>
+              Товары:{" "}
+              {orderDetails.products
+                .map(
+                  (item) =>
+                    `${item.name} ${item.type}${
+                      item.item_size ? ` ${item.item_size}` : ""
+                    }`
+                )
+                .join(", ")}
             </div>
           </div>
         </div>
@@ -174,46 +177,85 @@ const ConfirmManage = ({
   returnToStore = (f) => f,
 }) => {
   const [ucoinsPayment, setUcoinsPayment] = useState(true);
+  const [office, setOffice] = useState("Шейнкмана, 123");
+
   return (
     <div className="confirm-mng">
-      <form onSubmit={formSubmit}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          formSubmit(office, ucoinsPayment ? "ucoins" : "rubles");
+        }}
+      >
         <div>
           <span>Итого</span>
           <NumberWithIcon number={totalCount} ucoinColor={"black"} />
         </div>
-        <List
-          data={[
-            {
-              label: "Ясная, 14А",
-              value: "Yasnaya",
-            },
-            {
-              label: "Ленина, 8",
-              value: "Lenina",
-            },
-            {
-              label: "Мира, 6",
-              value: "Mira",
-            },
-          ]}
-          listClassName={"offices-wrapper"}
-          renderItem={(office, index) => (
-            <>
+        <ul className="offices-wrapper">
+          <li>
+            <input
+              type="radio"
+              name="office"
+              id={`office-1`}
+              defaultChecked={true}
+              onFocus={() => setOffice("Шейнкмана, 123")}
+            />
+            <label htmlFor={`office-1`}>Шейнкмана, 123</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="office"
+              id={`office-2`}
+              onFocus={() => setOffice("Деловой квартал")}
+            />
+            <label htmlFor={`office-2`}>Деловой квартал</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="office"
+              id={`office-3`}
+              onFocus={() => setOffice("Ткачей, 23")}
+            />
+            <label htmlFor={`office-3`}>Ткачей, 23</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="office"
+              id={`office-4`}
+              onFocus={() => setOffice("Ткачей, 6")}
+            />
+            <label htmlFor={`office-4`}>Ткачей, 6</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="office"
+              id={`office-5`}
+              onFocus={() => setOffice("Космонавтов, 15")}
+            />
+            <label htmlFor={`office-5`}>Космонавтов, 15</label>
+          </li>
+          <li>
+            <input type="radio" name="office" id={`office-6`} />
+            <label htmlFor={`office-6`}>
               <input
-                type="radio"
+                type="text"
                 name="office"
-                id={`office-${office.value.toLowerCase()}`}
-                value={office.value}
-                defaultChecked={!index}
+                placeholder="Другое:"
+                onFocus={(e) => {
+                  const element = document.getElementById("office-6");
+                  element.checked = true;
+                  setOffice(e.target.value);
+                }}
+                onChange={(e) => setOffice(e.target.value)}
               />
-              <label htmlFor={`office-${office.value.toLowerCase()}`}>
-                {office.label}
-              </label>
-            </>
-          )}
-        />
-        {/* <div> */}
-        {/* <label htmlFor="paymentMethod">Оплачу юкоинами: </label> */}
+            </label>
+          </li>
+        </ul>
         <input
           type="hidden"
           id="paymentMethod"
@@ -221,7 +263,6 @@ const ConfirmManage = ({
           checked={ucoinsPayment}
           onChange={() => setUcoinsPayment(!ucoinsPayment)}
         />
-        {/* </div> */}
         <div className="mng-btns">
           <button
             className="place-order-btn"

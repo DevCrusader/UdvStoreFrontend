@@ -37,7 +37,7 @@ function App() {
                   element={<Confirm theme={"Udv"} />}
                 />
               </Route>
-              <Route path="ussc">
+              {/* <Route path="ussc">
                 <Route
                   path="store"
                   element={<StoreRouter theme={"Ussc"} />}
@@ -46,7 +46,7 @@ function App() {
                   path="confirm"
                   element={<Confirm theme={"Ussc"} />}
                 />
-              </Route>
+              </Route> */}
             </Route>
             <Route path="admin" element={<RoleAccessRoutes />}>
               <Route path="" element={<AdminMain />} />

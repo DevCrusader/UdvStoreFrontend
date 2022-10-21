@@ -4,12 +4,9 @@ import NumberWithUcoin from "../utils/NumberWithUcoin";
 import Popup from "./Popup";
 
 import "../static/css/adminUserListItem.css";
-import { BACKEND_PATH, Roles } from "../Settings";
+import { BACKEND_PATH } from "../Settings";
 
-const AdminUserListItem = ({
-  userObj = {},
-  curUserRole = Roles.Employee,
-}) => {
+const AdminUserListItem = ({ userObj = {} }) => {
   const [fetchParams, setFetchParams] = useState({
     url: "",
     options: {},
@@ -17,7 +14,14 @@ const AdminUserListItem = ({
   const { loading, data, error } = useAuthFetch(fetchParams);
 
   const [user, setUser] = useState(userObj);
-  const [opened, toggleOpened] = useReducer((prev) => !prev, false);
+  const [openedAdd, toggleOpenedAdd] = useReducer(
+    (prev) => !prev,
+    false
+  );
+  const [openedRemove, toggleOpenedRemove] = useReducer(
+    (prev) => !prev,
+    false
+  );
 
   const [deleted, setDeleted] = useState(false);
   const [requestData, setRequestData] = useState(null);
@@ -44,18 +48,7 @@ const AdminUserListItem = ({
     }
   }, [data]);
 
-  useEffect(() => {}, [error]);
-
-  useEffect(() => {}, [loading]);
-
   const deleteUser = async () => {
-    console.log(Roles.Moderator);
-    if (
-      curUserRole !== Roles.Administrator &&
-      curUserRole !== Roles.Moderator
-    )
-      return;
-
     setFetchParams({
       url:
         BACKEND_PATH + `service-admin/user/delete/${user.user_id}/`,
@@ -81,15 +74,13 @@ const AdminUserListItem = ({
           lastName: user.last_name,
           patronymic: user.patronymic,
           balance: user.balance,
-          role: user.role,
+          permission: user.admin_permissions,
         }),
       },
     });
   };
 
-  const changeUserRole = async (newRole) => {
-    if (curUserRole !== Roles.Administrator) return;
-
+  const changeUserRole = async () => {
     setFetchParams({
       url: BACKEND_PATH + `service-admin/user/role/${user.user_id}/`,
       options: {
@@ -97,9 +88,6 @@ const AdminUserListItem = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          role: newRole,
-        }),
       },
     });
   };
@@ -110,7 +98,32 @@ const AdminUserListItem = ({
     const { comment, count } = e.target;
 
     setFetchParams({
-      url: BACKEND_PATH + "service-admin/balance-replenishment/",
+      url:
+        BACKEND_PATH +
+        "service-admin/balance-changes?action=replenishment",
+      options: {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userObj.user_id,
+          comment: comment.value.trim(),
+          count: count.value,
+        }),
+      },
+    });
+  };
+
+  const removeUcoin = async (e) => {
+    e.preventDefault();
+
+    const { comment, count } = e.target;
+
+    setFetchParams({
+      url:
+        BACKEND_PATH +
+        "service-admin/balance-changes?action=write-off",
       options: {
         method: "POST",
         headers: {
@@ -129,13 +142,14 @@ const AdminUserListItem = ({
     <div className={`user-item ${deleted ? "deleted" : ""}`}>
       <div className="user-info">
         <span>{user.name}</span>
-        <NumberWithUcoin number={user.balance} />
-        <span>{user.role}</span>
 
         {deleted ? (
           <span style={{ color: "red" }}>Пользователь удалён</span>
         ) : (
-          <></>
+          <>
+            <NumberWithUcoin number={user.balance} />
+            {user.admin_permissions && <span>Администратор</span>}
+          </>
         )}
       </div>
       <div className="error">{JSON.stringify(error?.message)}</div>
@@ -144,36 +158,19 @@ const AdminUserListItem = ({
           <button onClick={returnUser}>Вернуть пользователя</button>
         ) : (
           <>
-            {curUserRole === Roles.Moderator ? (
-              <button onClick={toggleOpened}>Начислить юкойны</button>
-            ) : curUserRole === Roles.Administrator ? (
-              <>
-                <button onClick={toggleOpened}>
-                  Начислить юкойны
-                </button>
-                <button onClick={deleteUser}>Уволить</button>
-                {user.role === Roles.Employee && (
-                  <>
-                    <button
-                      onClick={() => changeUserRole(Roles.Moderator)}
-                    >
-                      Сделать модератором
-                    </button>
-                  </>
-                )}
-                {/* {user.role === Roles.Moderator && (
-                  <>
-                    <button
-                      onClick={() => changeUserRole(Roles.Employee)}
-                    >
-                      Зарать права модератора
-                    </button>
-                  </>
-                )} */}
-              </>
-            ) : (
-              <></>
-            )}
+            <button onClick={toggleOpenedAdd}>
+              Начислить юкойны
+            </button>
+            <button onClick={toggleOpenedRemove}>
+              Списать юкойны
+            </button>
+            <button onClick={deleteUser}>Уволить</button>
+            <button onClick={() => changeUserRole()}>
+              {user.admin_permissions
+                ? "Забрать права администратора"
+                : "Сделать администратором"}
+            </button>
+
             {loading ? (
               <span className="loading">Loading...</span>
             ) : (
@@ -182,17 +179,30 @@ const AdminUserListItem = ({
           </>
         )}
       </div>
-      {opened && (
+      {(openedAdd || openedRemove) && (
         <Popup
-          header={"Начисление юкойнов"}
+          header={
+            openedAdd
+              ? "Начислить юкойны"
+              : openedRemove
+              ? "Списать юкойны"
+              : ""
+          }
           body={
             <>
               {!requestData ? (
                 <form
                   className={`ucoin-add ${error ? "invalid" : ""}`}
-                  onSubmit={addUcoin}
+                  onSubmit={openedRemove ? removeUcoin : addUcoin}
                 >
-                  <label>Напишите причину зачисления</label>
+                  <label>
+                    Напишите причину{" "}
+                    {openedAdd
+                      ? "начисления"
+                      : openedRemove
+                      ? "списания"
+                      : ""}
+                  </label>
                   <textarea
                     style={{
                       width: "400px",
@@ -220,20 +230,45 @@ const AdminUserListItem = ({
                   <span className="error">
                     {JSON.stringify(error?.message)}
                   </span>
-                  <button type="submit">Начислить</button>
+                  <button type="submit">
+                    {openedAdd
+                      ? "Начислить"
+                      : openedRemove
+                      ? "Списать"
+                      : ""}
+                  </button>
                 </form>
               ) : (
                 <div className="success-request">
-                  <p>Юкойны успешно начислены!</p>
+                  <p>
+                    Юкойны успешно{" "}
+                    {openedAdd
+                      ? "начислены"
+                      : openedRemove
+                      ? "списаны"
+                      : ""}
+                    !
+                  </p>
                   <button onClick={() => setRequestData(null)}>
-                    Начислить ещё юкойнов
+                    {openedAdd
+                      ? "Начислить"
+                      : openedRemove
+                      ? "Списать"
+                      : ""}{" "}
+                    ещё юкойнов
                   </button>
                 </div>
               )}
             </>
           }
           popupClassName="add-ucoin-popup"
-          togglePopup={toggleOpened}
+          togglePopup={
+            openedAdd
+              ? toggleOpenedAdd
+              : openedRemove
+              ? toggleOpenedRemove
+              : (f) => f
+          }
         />
       )}
     </div>
