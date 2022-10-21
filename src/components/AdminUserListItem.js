@@ -132,7 +132,7 @@ const AdminUserListItem = ({ userObj = {} }) => {
         body: JSON.stringify({
           userId: userObj.user_id,
           comment: comment.value.trim(),
-          count: count.value,
+          count: Number(count.value),
         }),
       },
     });
