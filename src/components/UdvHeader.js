@@ -21,8 +21,7 @@ const UdvHeader = () => {
           </li>
           {user && (
             <>
-              {user.role === "Administrator" ||
-              user.role === "Moderator" ? (
+              {user.permission ? (
                 <li>
                   <Link className="admin" to={"/admin/"}>
                     Админ-панель

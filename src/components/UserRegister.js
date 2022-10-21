@@ -1,18 +1,13 @@
 import React, { useReducer, useState, memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_PATH } from "../Settings";
 
 import useAuthFetch from "../hooks/useAuthFetch";
-
 import Popup from "./Popup";
 
 import "../static/css/adminUserRegister.css";
-import { BACKEND_PATH } from "../Settings";
 
-const UserRegister = ({
-  onRegisterFunc = (f) => f,
-  userRole,
-  authFetch,
-}) => {
+const UserRegister = ({ onRegisterFunc = (f) => f }) => {
   const navigate = useNavigate();
 
   const [opened, toggleOpened] = useReducer(
@@ -30,12 +25,10 @@ const UserRegister = ({
 
   const { loading, data, error } = useAuthFetch(fetchParams);
 
-  if (!userRole) navigate("access-error");
-
   useEffect(() => {
     if (data) {
       setSuccessMsg(data);
-      onRegisterFunc(data, data.role.toLowerCase());
+      if (data.admin_permissions) onRegisterFunc(data);
     }
   }, [data]);
 
@@ -73,7 +66,7 @@ const UserRegister = ({
           firstName: firstName.value.trim(),
           lastName: lastName.value.trim(),
           patronymic: patronymic.value.trim(),
-          role: role.value.trim(),
+          permission: role.value === "Administrator",
           balance: balance.value ? Number(balance.value) : 0,
         }),
       },
@@ -161,17 +154,11 @@ const UserRegister = ({
                     <label forhtml="role-reg">Роль</label>
                     <br />
                     <select id="role-reg" name="role">
-                      <option>Employee</option>
-                      {userRole === "Administrator" ? (
-                        <>
-                          <option>Moderator</option>
-                          <option>Administrator</option>
-                        </>
-                      ) : (
-                        <></>
-                      )}
+                      <option value="Employee">Сотрудник</option>
+                      <option value="Administrator">
+                        Администратор
+                      </option>
                     </select>
-                    {/* </span> */}
                     {errorMsg ? (
                       <div className="error-msg">
                         Error: {JSON.stringify(errorMsg)}

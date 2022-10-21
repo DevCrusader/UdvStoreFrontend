@@ -7,14 +7,14 @@ import { BACKEND_PATH, Roles } from "../Settings";
 import AdminUserListItem from "./AdminUserListItem";
 import useFetch from "../hooks/useFetch";
 
-const UserSearch = ({ userRole = Roles.Employee }) => {
-  const [pinnedList, setPinnedList] = useState(
-    localStorage.getItem("adminInfo")
-      ? JSON.parse(localStorage.getItem("adminInfo")).pinnedList
-      : []
-  );
+const UserSearch = () => {
+  // const [pinnedList, setPinnedList] = useState(
+  //   localStorage.getItem("adminInfo")
+  //     ? JSON.parse(localStorage.getItem("adminInfo")).pinnedList
+  //     : []
+  // );
 
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(null);
 
   const [fetchParams, setFetchParams] = useState({
     url: "",
@@ -23,12 +23,28 @@ const UserSearch = ({ userRole = Roles.Employee }) => {
 
   const { loading, data, error } = useFetch(fetchParams);
 
+  useEffect(() => {
+    if (data) {
+      setUserList(data);
+    }
+  }, [data]);
+
   const [userSearchWithDelay, clearQueue, _] = useDelay((args) => {
-    const [search, ...rest] = args;
+    const [search, _] = args;
+
+    const [lastName, firstName, patronymic] = search
+      .trim()
+      .split(" ");
 
     if (search)
       setFetchParams({
-        url: BACKEND_PATH + `user/search/?search=${search}`,
+        url:
+          BACKEND_PATH +
+          `user/search?firstName=${
+            firstName ? firstName : "*"
+          }&lastName=${lastName ? lastName : "*"}&patronymic=${
+            patronymic ? patronymic : "*"
+          }`,
         options: {
           method: "GET",
           headers: {
@@ -49,34 +65,28 @@ const UserSearch = ({ userRole = Roles.Employee }) => {
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      setUserList(data);
-    }
-  }, [data]);
+  // const savePinnedList = async (list) => {
+  //   setPinnedList(list);
+  //   const adminInfo = JSON.parse(localStorage.getItem("adminInfo"));
 
-  const savePinnedList = async (list) => {
-    setPinnedList(list);
-    const adminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+  //   localStorage.setItem(
+  //     "adminInfo",
+  //     JSON.stringify({
+  //       ...adminInfo,
+  //       pinnedList: list,
+  //     })
+  //   );
+  // };
 
-    localStorage.setItem(
-      "adminInfo",
-      JSON.stringify({
-        ...adminInfo,
-        pinnedList: list,
-      })
-    );
-  };
+  // const pinUser = async (user) => {
+  //   savePinnedList([...pinnedList, user]);
+  // };
 
-  const pinUser = async (user) => {
-    savePinnedList([...pinnedList, user]);
-  };
-
-  const unpinUser = async (userId) => {
-    savePinnedList(
-      pinnedList.filter((item) => item.user_id !== userId)
-    );
-  };
+  // const unpinUser = async (userId) => {
+  //   savePinnedList(
+  //     pinnedList.filter((item) => item.user_id !== userId)
+  //   );
+  // };
 
   return (
     <div className="user-search">
@@ -96,11 +106,8 @@ const UserSearch = ({ userRole = Roles.Employee }) => {
         data={userList}
         renderItem={(item) => (
           <>
-            <AdminUserListItem
-              userObj={item}
-              curUserRole={userRole}
-            />
-            <button
+            <AdminUserListItem userObj={item} />
+            {/* <button
               disabled={pinnedList.some(
                 (user) => user.user_id === item.user_id
               )}
@@ -108,21 +115,25 @@ const UserSearch = ({ userRole = Roles.Employee }) => {
               onClick={() => pinUser(item)}
             >
               Закрепить
-            </button>
+            </button> */}
           </>
         )}
-        renderEmpty={<></>}
+        renderEmpty={
+          <>
+            {userList &&
+              !userList.length &&
+              !loading &&
+              "По вашему запросу ничего не найдено."}
+          </>
+        }
         keyByItemId={"user_id"}
         listClassName={"user-search-list"}
       />
-      <List
+      {/* <List
         data={pinnedList}
         renderItem={(item) => (
           <>
-            <AdminUserListItem
-              userObj={item}
-              curUserRole={userRole}
-            />
+            <AdminUserListItem userObj={item} />
             <button
               className="unpin"
               onClick={() => unpinUser(item.user_id)}
@@ -133,7 +144,7 @@ const UserSearch = ({ userRole = Roles.Employee }) => {
         )}
         renderEmpty={<></>}
         listClassName={"pinned-list"}
-      />
+      /> */}
     </div>
   );
 };

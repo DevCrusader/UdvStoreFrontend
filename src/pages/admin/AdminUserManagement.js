@@ -4,49 +4,30 @@ import AuthContext from "../../context/AuthContext";
 import List from "../../utils/List";
 import MemoUserRegister from "../../components/UserRegister";
 import MemoUserSearch from "../../components/UserSearch";
-import MemoUsersRoleComponent from "../../components/UserRoleManagement";
+import AdminsList from "../../components/AdminsList";
 
 import "../../static/css/adminUserManagement.css";
 
 const AdminUserManagement = () => {
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log("Rerendered!");
-  });
+  const [transfer, setTransfer] = useState([]);
 
-  const [transfer, setTransfer] = useState({
-    administrator: [],
-    moderator: [],
-  });
-
-  const addUser = async (user, role = "moderator") => {
-    if (transfer[role]) {
-      setTransfer({ ...transfer, [role]: [...transfer[role], user] });
-    }
+  const addUser = async (user) => {
+    setTransfer([...transfer, user]);
   };
 
   return (
     <div className="standart-container user-mng">
       <div className="inner-container">
-        <h2>AdminUserManagement, your role is {String(user.role)}</h2>
-        <MemoUserRegister
-          userRole={user.role}
-          onRegisterFunc={addUser}
-        />
-        <MemoUserSearch userRole={user.role} />
+        <h2>AdminUserManagement</h2>
+        <MemoUserRegister onRegisterFunc={addUser} />
+        <MemoUserSearch />
       </div>
 
-      <MemoUsersRoleComponent
-        userRole={user.role}
-        userId={user.id}
-        role="Moderator"
-        transfered={transfer.moderator}
-      />
-      <MemoUsersRoleComponent
-        userRole={user.role}
-        role="Administrator"
-        transfered={transfer.administrator}
+      <AdminsList
+        userPermission={user.permission}
+        transfered={transfer}
       />
     </div>
   );

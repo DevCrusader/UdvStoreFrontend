@@ -16,6 +16,7 @@
 
 .admin-orders > ul.orders-wrapper > li > .order-header {
   margin-bottom: 10px;
+  display: flex;
 }
 
 .admin-orders > ul.orders-wrapper > li > .order-header > span {
@@ -24,10 +25,30 @@
 }
 
 .admin-orders > ul.orders-wrapper > li > .order-header > button {
-  font-size: 1em;
-
   margin-left: 12.5px;
 }
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > .order-header
+  > button.cancellation-btn {
+  /* margin-left: auto; */
+  background-color: #ff5656;
+  color: white;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > .order-header
+  > button.cancellation-btn:hover {
+  filter: opacity(0.8);
+  transition-duration: 0.3s;
+}
+
 .admin-orders
   > ul.orders-wrapper
   > li
@@ -36,7 +57,11 @@
   color: #548ee5;
   background-color: rgba(0, 0, 0, 0);
 }
-.admin-orders > ul.orders-wrapper > li > .order-header > button.to-order-info {
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  > .order-header
+  > button.to-order-info {
   padding-left: 30px;
 
   background-image: url("../svg/BackArrowIcon.svg");
@@ -74,15 +99,30 @@
   transition-duration: 0.5s;
 }
 
-.admin-orders > ul.orders-wrapper > li .order-info > ul.state > li.near {
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  .order-info
+  > ul.state
+  > li.near {
   opacity: 0.45;
 }
 
-.admin-orders > ul.orders-wrapper > li .order-info > ul.state > li.active {
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  .order-info
+  > ul.state
+  > li.active {
   opacity: 1;
 }
 
-.admin-orders > ul.orders-wrapper > li .order-info > .toggle > button {
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  .order-info
+  > .toggle
+  > button {
   font-size: 1em;
   width: calc(216px + 5px + 5px);
   height: 36px;
@@ -99,21 +139,25 @@
   > .toggle
   > button.completed::after {
   content: "После обновления страницы заказ не будет отображён.";
-  display: inline-block;
+  display: block;
 
-  position: absolute;
+  position: relative;
   font-size: 0.7em;
   color: #575757;
 
-  margin-left: calc(-216px + 19px);
-  margin-top: 33px;
+  top: 8px;
 
-  width: 216px;
+  width: 100%;
 
   text-align: center;
 }
 
-.admin-orders > ul.orders-wrapper > li .order-info > .toggle > button:hover {
+.admin-orders
+  > ul.orders-wrapper
+  > li
+  .order-info
+  > .toggle
+  > button:hover {
   background-color: rgb(231, 231, 231);
 }
 
