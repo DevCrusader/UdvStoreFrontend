@@ -6,12 +6,9 @@ const Popup = ({
   header = <h3>Popup header</h3>,
   body = <p>Popup body</p>,
   popupClassName = "",
-  togglePopup = (f) => f,
+  togglePopup = (f) =>
+    console.log("Не задана функция закрытия попапа."),
 }) => {
-  useEffect(() => {
-    // console.log(props);
-  }, []);
-
   return (
     <div className={`popup ${popupClassName}`}>
       {/* <button onClick={() => console.log("Click on popup bg.")}></button> */}

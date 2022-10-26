@@ -37,16 +37,6 @@ function App() {
                   element={<Confirm theme={"Udv"} />}
                 />
               </Route>
-              {/* <Route path="ussc">
-                <Route
-                  path="store"
-                  element={<StoreRouter theme={"Ussc"} />}
-                />
-                <Route
-                  path="confirm"
-                  element={<Confirm theme={"Ussc"} />}
-                />
-              </Route> */}
             </Route>
             <Route path="admin" element={<RoleAccessRoutes />}>
               <Route path="" element={<AdminMain />} />

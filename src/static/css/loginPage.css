@@ -88,8 +88,17 @@ div.login-wrapper > form > .form-body > input[type="submit"]:hover {
   /* transition-duration: 0.5s; */
 }
 
-div.login-wrapper > form > .form-body > div.error-msg {
-  visibility: hidden;
+div.login-wrapper > form > .form-body > .self-reg-btn {
+  background-color: rgba(0, 0, 0, 0);
+  color: #767676;
+  text-decoration: underline;
+}
+
+div.login-wrapper > form > .form-body > .self-reg-btn:hover {
+  color: #898989;
+}
+div.login-wrapper > form > .form-body > div.error {
+  color: rgb(202, 64, 64);
   margin-top: 15px;
 
   font-size: 0.75em;
@@ -97,7 +106,59 @@ div.login-wrapper > form > .form-body > div.error-msg {
   text-align: center;
 }
 
-div.login-wrapper > form.error > .form-body > div.error-msg {
-  visibility: visible;
+div.login-wrapper .self-register .body form {
+  /* background-color: green; */
+  width: 80%;
+  max-width: 360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+div.login-wrapper .self-register .body form label {
+  margin-bottom: 10px;
+}
+
+div.login-wrapper .self-register .body form label:not(:first-child) {
+  margin-top: 27px;
+}
+
+div.login-wrapper .self-register .body form input[type="text"] {
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+
+div.login-wrapper .self-register .body form button {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: fit-content;
+
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 7px 15px;
+}
+
+div.login-wrapper
+  .self-register
+  .body
+  form
+  button[type="submit"]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition-duration: 0.5s;
+}
+
+div.login-wrapper .self-register .body form div.error {
+  margin: 10px 0;
+  font-size: 0.75em;
   color: rgb(202, 64, 64);
+}
+
+div.login-wrapper .self-register .body form div.success-text {
+  text-align: center;
+  margin: 150px 0;
 }
