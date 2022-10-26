@@ -6,6 +6,8 @@ import UdvHeader from "../components/UdvHeader";
 const ProtectedRoutes = () => {
   const { user } = useContext(AuthContext);
 
+  console.log(user);
+
   return user ? (
     <>
       <UdvHeader />

@@ -1,18 +1,21 @@
-import React, { memo, useEffect, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import List from "../utils/List";
 
 import "../static/css/adminUserSearch.css";
 import useDelay from "../hooks/useDelay";
-import { BACKEND_PATH, Roles } from "../Settings";
+import { BACKEND_PATH } from "../Settings";
 import AdminUserListItem from "./AdminUserListItem";
 import useFetch from "../hooks/useFetch";
+import AuthContext from "../context/AuthContext";
 
 const UserSearch = () => {
-  // const [pinnedList, setPinnedList] = useState(
-  //   localStorage.getItem("adminInfo")
-  //     ? JSON.parse(localStorage.getItem("adminInfo")).pinnedList
-  //     : []
-  // );
+  const { user, changeUserBalance } = useContext(AuthContext);
 
   const [userList, setUserList] = useState(null);
 
@@ -65,28 +68,9 @@ const UserSearch = () => {
     }
   };
 
-  // const savePinnedList = async (list) => {
-  //   setPinnedList(list);
-  //   const adminInfo = JSON.parse(localStorage.getItem("adminInfo"));
-
-  //   localStorage.setItem(
-  //     "adminInfo",
-  //     JSON.stringify({
-  //       ...adminInfo,
-  //       pinnedList: list,
-  //     })
-  //   );
-  // };
-
-  // const pinUser = async (user) => {
-  //   savePinnedList([...pinnedList, user]);
-  // };
-
-  // const unpinUser = async (userId) => {
-  //   savePinnedList(
-  //     pinnedList.filter((item) => item.user_id !== userId)
-  //   );
-  // };
+  const onChangeUserBalance = useCallback(changeUserBalance, [
+    changeUserBalance,
+  ]);
 
   return (
     <div className="user-search">
@@ -95,10 +79,8 @@ const UserSearch = () => {
         className="user-search"
         placeholder="Поиск сотрудника"
         onChange={userSearch}
-        title={
-          "Для лучшего поиска вводите запрос в формате: Фамилия Имя Отчество."
-        }
       />
+      <span className="faq-search">dqqwd</span>
       <div className={`${error ? "error-place" : ""}`}>
         {error && <>{JSON.stringify(error?.message)}</>}
       </div>
@@ -106,16 +88,14 @@ const UserSearch = () => {
         data={userList}
         renderItem={(item) => (
           <>
-            <AdminUserListItem userObj={item} />
-            {/* <button
-              disabled={pinnedList.some(
-                (user) => user.user_id === item.user_id
-              )}
-              className="pin"
-              onClick={() => pinUser(item)}
-            >
-              Закрепить
-            </button> */}
+            <AdminUserListItem
+              userObj={item}
+              onChangeUserBalance={
+                item.user_id === user.user_id
+                  ? onChangeUserBalance
+                  : (f) => f
+              }
+            />
           </>
         )}
         renderEmpty={
@@ -129,22 +109,6 @@ const UserSearch = () => {
         keyByItemId={"user_id"}
         listClassName={"user-search-list"}
       />
-      {/* <List
-        data={pinnedList}
-        renderItem={(item) => (
-          <>
-            <AdminUserListItem userObj={item} />
-            <button
-              className="unpin"
-              onClick={() => unpinUser(item.user_id)}
-            >
-              Открепить
-            </button>
-          </>
-        )}
-        renderEmpty={<></>}
-        listClassName={"pinned-list"}
-      /> */}
     </div>
   );
 };

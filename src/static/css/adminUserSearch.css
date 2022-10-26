@@ -1,4 +1,4 @@
-div.user-search input[type="text"] {
+div.user-search > input[type="text"] {
   width: 100%;
 
   box-sizing: border-box;
@@ -74,4 +74,11 @@ div.user-search ul.user-search-list::before {
   color: #4f4f4f;
   width: 100%;
   padding-bottom: 15px;
+}
+
+div.user-search > input[type="text"] + .faq-search {
+  background-color: green;
+  position: relative;
+  top: 0;
+  left: 95%;
 }

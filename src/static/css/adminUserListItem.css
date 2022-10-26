@@ -8,6 +8,8 @@ li > div.user-item {
 
   padding: 29px 0;
   padding-left: 33px;
+
+  margin-bottom: 15px;
 }
 
 li > div.user-item.deleted {

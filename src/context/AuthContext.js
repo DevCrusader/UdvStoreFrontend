@@ -35,34 +35,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
   };
 
-  const loginUser = async (e) => {
-    e.preventDefault();
-
-    if (user) return;
-
-    const url = BACKEND_PATH + "user/token/";
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value.trim(),
-        password: e.target.password.value.trim(),
-      }),
-    });
-
-    const data = await response.json();
-
-    if (response.status === 200) {
-      successResponse(data);
-      return navigate("udv/store/");
-    }
-
-    return response.status;
-  };
-
   const updateToken = async () => {
     if (refreshed) {
       console.error("Untimely access to refresh token");
@@ -127,7 +99,7 @@ export const AuthProvider = ({ children }) => {
         user,
         authTokens,
         updateToken,
-        loginUser,
+        successResponse,
         logoutUser,
         changeUserBalance,
       }}
