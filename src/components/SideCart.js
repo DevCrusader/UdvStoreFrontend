@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartContext from "../context/CartContext";
 import List from "../utils/List";
@@ -13,19 +13,7 @@ const PureSideCart = () => {
 
   const navigate = useNavigate();
 
-  const openSideCart = () => {
-    const element = document.getElementById("side-cart");
-
-    element.classList.remove("close-side-cart");
-    element.classList.add("open-side-cart");
-  };
-
-  const closeSideCart = () => {
-    const element = document.getElementById("side-cart");
-
-    element.classList.remove("open-side-cart");
-    element.classList.add("close-side-cart");
-  };
+  const [opened, setOpened] = useState(false);
 
   const cartitemsCount = (length) =>
     [
@@ -41,9 +29,17 @@ const PureSideCart = () => {
 
   return (
     <>
-      <div id="side-cart" className="card side-cart">
+      <div
+        id="side-cart"
+        className={`card side-cart ${
+          !opened ? "close-side-cart" : "open-side-cart"
+        }`}
+      >
         <header>
-          <button className="back-img-center" onClick={closeSideCart}>
+          <button
+            className="back-img-center"
+            onClick={() => setOpened(false)}
+          >
             Закрыть
           </button>
         </header>
@@ -125,7 +121,7 @@ const PureSideCart = () => {
       {cart && Boolean(cart.length) && (
         <button
           className="back-img-center absolute-side-cart-btn"
-          onClick={openSideCart}
+          onClick={() => setOpened(true)}
         >
           {cartitemsCount(cart.length)}
         </button>

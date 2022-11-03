@@ -1,7 +1,7 @@
 button.absolute-side-cart-btn {
   position: fixed;
   top: 85vh;
-  left: 85vw;
+  left: calc(80vw);
 
   font-size: 1em;
   border-radius: 15px;
@@ -40,6 +40,8 @@ button.absolute-side-cart-btn:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  transition-duration: 1s;
 }
 
 #side-cart > header {
@@ -93,54 +95,22 @@ button.absolute-side-cart-btn:hover {
   padding: 10px;
 }
 
-#side-cart.open-side-cart {
-  animation: open-cart 1s forwards;
-}
-
-#side-cart.close-side-cart {
-  animation: close-cart 1s forwards;
-}
-
 @media screen and (min-width: 1440px) {
-  @keyframes open-cart {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-393px);
-    }
+  #side-cart.open-side-cart {
+    left: calc(100vw - 393px);
   }
 
-  @keyframes close-cart {
-    0% {
-      transform: translateX(-393px);
-    }
-
-    100% {
-      transform: translateX(0);
-    }
+  #side-cart.close-side-cart {
+    left: 100vw;
   }
 }
 
 @media screen and (max-width: 1440px) {
-  @keyframes open-cart {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-27.3vw);
-    }
+  #side-cart.open-side-cart {
+    left: calc(100vw - 27.3vw);
   }
 
-  @keyframes close-cart {
-    0% {
-      transform: translateX(-27.3vw);
-    }
-
-    100% {
-      transform: translateX(0);
-    }
+  #side-cart.close-side-cart {
+    left: 100vw;
   }
 }
