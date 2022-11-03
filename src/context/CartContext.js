@@ -16,7 +16,7 @@ export default CartContext;
 export const CartProvider = ({ children }) => {
   const { authTokens } = useContext(AuthContext);
 
-  const [cart, setCart] = useState(
+  const [cart, setCart] = useState(() =>
     localStorage.getItem("userCart")
       ? JSON.parse(localStorage.getItem("userCart"))
       : null

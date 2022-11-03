@@ -11,9 +11,11 @@ const AdminUserListItem = ({ userObj = {}, onChangeUserBalance }) => {
     url: "",
     options: {},
   });
+
   const { loading, data, error } = useAuthFetch(fetchParams);
 
   const [user, setUser] = useState(userObj);
+
   const [openedAdd, toggleOpenedAdd] = useReducer(
     (prev) => !prev,
     false
