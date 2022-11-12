@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SideCart from "../../components/SideCart";
 import CurrentItemCart from "../../components/CurrentItemCart";
@@ -85,6 +85,9 @@ const Product = ({ productId, type, theme }) => {
   return (
     <div className="product-page">
       <div className={`decoration`}></div>
+      <Link to="/udv/store/" className="back-to-store">
+        Вернуться в магазин
+      </Link>
       <ProductPhotos photos={currentItem ? currentItem.photos : []} />
       <div className="product-info">
         <ProductInfo product={productInfo ? productInfo : null} />
