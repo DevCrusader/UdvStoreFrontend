@@ -4,6 +4,8 @@
   margin-top: -20px;
 
   background-image: url("../svg/Banner.svg");
+  background-position: 50%;
+  background-size: auto;
 
   display: flex;
   align-items: center;
@@ -12,15 +14,16 @@
 .banner > .banner-wrapper {
   max-width: 1440px;
   width: 100%;
+  height: 100%;
   margin: 0 auto;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  font-size: 1.5em;
+  background-image: url("../svg/BannerDecoration.svg");
+  background-position: 50%;
+  background-size: auto;
+  background-repeat: no-repeat;
 }
-.banner > .banner-wrapper > .icon {
+
+/* .banner > .banner-wrapper > .icon {
   font-size: 2em;
   color: #00d19c;
   padding-left: 6%;
@@ -34,7 +37,7 @@
   background-repeat: no-repeat;
 
   margin-bottom: 2%;
-}
+} */
 
 @media screen and (min-width: 1440px) {
   .banner {
