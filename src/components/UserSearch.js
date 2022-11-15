@@ -14,6 +14,11 @@ import AdminUserListItem from "./AdminUserListItem";
 import useFetch from "../hooks/useFetch";
 import AuthContext from "../context/AuthContext";
 
+const capitalize = (word) => {
+  if (word.length > 0) return word[0].toUpperCase() + word.slice(1);
+  return word;
+};
+
 const UserSearch = () => {
   const { user, changeUserBalance } = useContext(AuthContext);
 
@@ -44,10 +49,10 @@ const UserSearch = () => {
         url:
           BACKEND_PATH +
           `user/search?firstName=${
-            firstName ? firstName : "*"
-          }&lastName=${lastName ? lastName : "*"}&patronymic=${
-            patronymic ? patronymic : "*"
-          }`,
+            firstName ? capitalize(firstName) : "*"
+          }&lastName=${
+            lastName ? capitalize(lastName) : "*"
+          }&patronymic=${patronymic ? capitalize(patronymic) : "*"}`,
         options: {
           method: "GET",
           headers: {
